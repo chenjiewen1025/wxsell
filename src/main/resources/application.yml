@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  #数据源配置
+  datasource:
+    url: jdbc:mysql://35.220.170.184:3306/sell?useSSL=false
+    username: root
+    password: "@Chenjiewen1996"
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    connectionProperties: druid.stat.mergeSql=true
+    initialSize: 1
+    minIdle: 3
+    maxActive: 20
+    maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+
+mybatis:
+  #实体类所做包
+  type-aliases-package: com.chenjiewen.wxsell.model
+  #mapper.xml所在位置
+  mapper-locations: classpath:mapping/*.xml
