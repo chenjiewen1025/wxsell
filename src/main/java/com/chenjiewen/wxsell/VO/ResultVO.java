@@ -2,6 +2,8 @@ package com.chenjiewen.wxsell.VO;
 
 import lombok.Data;
 
+import java.util.List;
+
 
 @Data
 public class ResultVO<T> {
