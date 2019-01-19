@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chenjiewen.wxsell.dao.ProductInfoDao">
+    <select id="selectByProductStatus" resultType="com.chenjiewen.wxsell.model.ProductInfo">
+        select * from product_info where product_status = #{productStatus}
+    </select>
+    <select id="selectByProductId" resultType="com.chenjiewen.wxsell.model.ProductInfo">
+        select * from product_info where product_id = #{productId}
+    </select>
+    <select id="selectAll" resultType="com.chenjiewen.wxsell.model.ProductInfo">
+        select * from product_info
+    </select>
+    <insert id="addProductInfo">
+        insert into product_info
+        (product_id,product_name,product_price,product_stock,
+        product_description,product_icon,category_type,product_status)
+        value
+        (#{productId},#{productName},#{productPrice},#{productStock},
+        #{productDescription},#{productIcon},#{categoryType},#{productStatus})
+    </insert>
+    <update id="updateProductInfo">
+        update product_info
+        <set>
+            <if test="productName != null">product_name=#{productName},</if>
+            <if test="productPrice != null">product_price=#{productPrice},</if>
+            <if test="productStock != null">product_stock=#{productStock},</if>
+            <if test="productDescription != null">product_description=#{productDescription},</if>
+            <if test="productIcon != null">product_icon=#{productIcon},</if>
+            <if test="categoryType != null">category_type=#{categoryType},</if>
+            <if test="productStatus != null">product_status=#{productStatus}</if>
+        </set>
+        where product_id=#{productId}
+    </update>
+    <delete id="deleteById">
+        delete from product_info
+        where product_id=#{productId}
+    </delete>
+</mapper>

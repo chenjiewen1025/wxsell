@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chenjiewen.wxsell.dao.ProductCategoryDao">
+
+    <insert id="addProductCategory" >
+        insert into product_category(category_name,category_type) value (#{categoryName},#{categoryType})
+    </insert>
+    <select id="selectAllProductCategory" resultType="com.chenjiewen.wxsell.model.ProductCategory" >
+        SELECT * FROM product_category
+    </select>
+    <select id="selectByCategoryTypeIn" resultType="com.chenjiewen.wxsell.model.ProductCategory">
+        select * from product_category where category_type in
+        <foreach collection="categoryType" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    <select id="selectByCategoryId" resultType="com.chenjiewen.wxsell.model.ProductCategory" >
+        SELECT * FROM product_category where category_id = #{categoryId}
+    </select>
+    <update id="updateProductCategory">
+        update product_category
+        <set>
+            <if test="categoryName != null">category_name=#{categoryName},</if>
+            <if test="categoryType != null">category_name=#{categoryType},</if>
+        </set>
+        where category_id=#{categoryId}
+    </update>
+    <delete id="deleteByCategoryId" >
+        DELETE FROM product_category WHERE category_id = #{categoryId}
+    </delete>
+
+</mapper>
