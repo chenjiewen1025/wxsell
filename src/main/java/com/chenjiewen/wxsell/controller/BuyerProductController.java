@@ -7,6 +7,7 @@ import com.chenjiewen.wxsell.model.ProductCategory;
 import com.chenjiewen.wxsell.model.ProductInfo;
 import com.chenjiewen.wxsell.service.ProductCategoryService;
 import com.chenjiewen.wxsell.service.ProductInfoService;
+import com.chenjiewen.wxsell.utils.ResultVOUtil;
 import com.fasterxml.jackson.databind.util.BeanUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,11 +67,7 @@ public class BuyerProductController {
             productVO.setProductInfoVOList(productInfoVOList);
             productVOList.add(productVO);
         }
-            ResultVO resultVO = new ResultVO();
-        resultVO.setData(productVOList);
-        resultVO.setCode(0);
-        resultVO.setMsg("success");
 
-        return resultVO ;
+        return ResultVOUtil.success(productVOList);
     }
 }
