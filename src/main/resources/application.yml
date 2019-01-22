@@ -5,7 +5,7 @@ server:
 spring:
   #数据源配置
   datasource:
-    url: jdbc:mysql://35.220.170.184:3306/sell?useSSL=false
+    url: jdbc:mysql://35.220.171.186:3306/sell?useSSL=false
     username: root
     password: "@Chenjiewen1996"
     driver-class-name: com.mysql.jdbc.Driver

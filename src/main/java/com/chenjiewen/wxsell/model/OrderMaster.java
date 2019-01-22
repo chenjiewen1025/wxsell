@@ -6,6 +6,7 @@ import com.chenjiewen.wxsell.enums.PayStatusEnum;
 import lombok.Data;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 
 @Data
@@ -41,5 +42,7 @@ public class OrderMaster {
 
     /** 更新时间. */
     private Date updateTime;
+
+    private List<OrderDetail> orderDetailList;
 
 }

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface OrderMasterDao {
     List<OrderMaster> selectByBuyerOpenid(@Param("buyerOpenid") String buyerOpenid);
+    void addOrderMaster(OrderMaster orderMaster);
 }
