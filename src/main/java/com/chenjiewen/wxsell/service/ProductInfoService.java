@@ -1,5 +1,6 @@
 package com.chenjiewen.wxsell.service;
 
+import com.chenjiewen.wxsell.dto.CarDTO;
 import com.chenjiewen.wxsell.model.ProductInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ public interface ProductInfoService {
     void deleteById(String id);
     void addProductInfo(ProductInfo productInfo);
     //加库存
-
+    void increaseStock(List<CarDTO> carDTOList);
     //减库存
-
+    void decreaseStock(List<CarDTO> carDTOList);
 }
