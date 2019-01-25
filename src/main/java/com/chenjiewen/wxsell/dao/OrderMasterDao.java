@@ -10,4 +10,5 @@ public interface OrderMasterDao {
     OrderMaster selectByOrderId(@Param("orderId") String orderId);
     void addOrderMaster(OrderMaster orderMaster);
     List<OrderMaster> selectAll();
+    void updateMaster(OrderMaster orderMaster);
 }

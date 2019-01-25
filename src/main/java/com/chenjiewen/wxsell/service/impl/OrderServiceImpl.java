@@ -3,6 +3,8 @@ package com.chenjiewen.wxsell.service.impl;
 import com.chenjiewen.wxsell.dao.OrderDetailDao;
 import com.chenjiewen.wxsell.dao.OrderMasterDao;
 import com.chenjiewen.wxsell.dto.CarDTO;
+import com.chenjiewen.wxsell.enums.OrderStatusEnum;
+import com.chenjiewen.wxsell.enums.PayStatusEnum;
 import com.chenjiewen.wxsell.enums.ResultEnum;
 import com.chenjiewen.wxsell.exception.SellException;
 import com.chenjiewen.wxsell.model.OrderDetail;
@@ -14,12 +16,15 @@ import com.chenjiewen.wxsell.utils.KeyUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service("orderService")
 @Transactional
 public class OrderServiceImpl implements OrderService {
@@ -30,7 +35,10 @@ public class OrderServiceImpl implements OrderService {
     private ProductInfoService productInfoService;
     @Resource
     private OrderDetailDao orderDetailDao;
+
+
     @Override
+    @Transactional
     public OrderMaster create(OrderMaster orderMaster) {
         /*
         * 1.查询商品，数量，单价
@@ -50,14 +58,15 @@ public class OrderServiceImpl implements OrderService {
             throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
             //2.
-            orderAmount = orderDetail.getProductPrice()
+            orderAmount = productInfo.getProductPrice()
                     .multiply(new BigDecimal(orderDetail.getProductQuantity()))
                     .add(orderAmount);
 
             //3.
+            BeanUtils.copyProperties(productInfo,orderDetail);
             orderDetail.setDetailId(KeyUtil.genUniqueKey());
             orderDetail.setOrderId(orderId);
-            BeanUtils.copyProperties(productInfo,orderDetail);
+
             orderDetailDao.addOrderDetail(orderDetail);
 
 
@@ -87,17 +96,79 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<OrderMaster> selectByBuyerOpenid(String buyerOpenid) {
+        return orderMasterDao.selectByBuyerOpenid(buyerOpenid);
+    }
+
+    @Override
+    @Transactional
     public OrderMaster cancel(OrderMaster orderMaster) {
-        return null;
+        //1.判断订单状态
+        //2.修改订单状态
+        //3.返回库存
+        //4.退款
+        if (!orderMaster.getOrderStatus().equals(OrderStatusEnum.NEW.getCode()))
+        {
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+
+        orderMaster.setOrderStatus(OrderStatusEnum.CANCEL.getCode());
+       orderMasterDao.updateMaster(orderMaster);
+
+       if (CollectionUtils.isEmpty(orderMaster.getOrderDetailList()))
+       {
+           throw new SellException(ResultEnum.ORDERDETAIL_NOT_EXIST);
+       }
+       List<CarDTO> carDTOList = orderMaster.getOrderDetailList().stream()
+               .map(e ->new CarDTO(e.getProductId(),e.getProductQuantity()))
+               .collect(Collectors.toList());
+       productInfoService.increaseStock(carDTOList);
+
+
+       if (orderMaster.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode()))
+       {
+           //todo
+       }
+        return orderMaster;
+
     }
 
     @Override
+    @Transactional
     public OrderMaster finish(OrderMaster orderMaster) {
-        return null;
+
+        /*
+        * 1.判断订单状态
+        * 2.修改状态
+        *
+        * */
+        if (!orderMaster.getOrderStatus().equals(OrderStatusEnum.NEW.getCode()))
+        {
+            throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
+        }
+
+        orderMaster.setOrderStatus(OrderStatusEnum.FINISHED.getCode());
+        orderMasterDao.updateMaster(orderMaster);
+
+        return orderMaster;
     }
 
     @Override
+    @Transactional
     public OrderMaster paid(OrderMaster orderMaster) {
-        return null;
+
+        if (!orderMaster.getOrderStatus().equals(OrderStatusEnum.NEW.getCode()))
+        {
+            throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
+        }
+        if (!orderMaster.getPayStatus().equals(PayStatusEnum.WAIT.getCode()))
+        {
+            throw new SellException(ResultEnum.ORDER_PAY_STATUS_ERROR);
+        }
+
+        orderMaster.setPayStatus(PayStatusEnum.SUCCESS.getCode());
+        orderMasterDao.updateMaster(orderMaster);
+
+        return orderMaster;
     }
 }

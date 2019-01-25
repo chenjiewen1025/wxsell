@@ -48,6 +48,18 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     @Override
     public void increaseStock(List<CarDTO> carDTOList) {
 
+        for (CarDTO carDTO:carDTOList)
+        {
+            ProductInfo productInfo = productInfoDao.selectByProductId(carDTO.getProductId());
+            if (productInfo==null)
+            {
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+            }
+            Integer result = productInfo.getProductStock() + carDTO.getProductQuantity();
+            productInfo.setProductStock(result);
+            productInfoDao.updateProductInfo(productInfo);
+        }
+
     }
 
     @Override

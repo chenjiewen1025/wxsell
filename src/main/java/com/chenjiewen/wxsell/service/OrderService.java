@@ -9,8 +9,11 @@ public interface OrderService {
     OrderMaster create(OrderMaster orderMaster);
     //查询单个订单
     OrderMaster selectByOrderId(String orderId);
+
     //查询订单列表
     List<OrderMaster> selectAll();
+
+    List<OrderMaster> selectByBuyerOpenid(String buyerOpenid);
     //取消订单
     OrderMaster cancel(OrderMaster orderMaster);
     //完结订单
