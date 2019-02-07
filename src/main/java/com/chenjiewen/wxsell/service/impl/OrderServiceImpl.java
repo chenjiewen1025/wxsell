@@ -13,6 +13,8 @@ import com.chenjiewen.wxsell.model.ProductInfo;
 import com.chenjiewen.wxsell.service.OrderService;
 import com.chenjiewen.wxsell.service.ProductInfoService;
 import com.chenjiewen.wxsell.utils.KeyUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -90,9 +92,12 @@ public class OrderServiceImpl implements OrderService {
         return orderMasterDao.selectByOrderId(orderId);
     }
 
-    @Override
-    public List<OrderMaster> selectAll() {
-        return orderMasterDao.selectAll();
+
+
+    public PageInfo<OrderMaster> selectAll(int page,int size) {
+        PageHelper.startPage(page, size);
+        PageInfo<OrderMaster> pageInfo = new PageInfo<>(orderMasterDao.selectAll());
+        return pageInfo;
     }
 
     @Override

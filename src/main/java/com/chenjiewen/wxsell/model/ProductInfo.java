@@ -1,9 +1,13 @@
 package com.chenjiewen.wxsell.model;
 
+import com.chenjiewen.wxsell.enums.CodeEnum;
+import com.chenjiewen.wxsell.enums.ProductStatusEnum;
+import com.chenjiewen.wxsell.utils.EnumUtil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Data
 public class ProductInfo {
@@ -30,9 +34,13 @@ public class ProductInfo {
     /** 类目编号. */
     private Integer categoryType;
 
-    private Date createTime;
+    private Timestamp createTime;
 
-    private Date updateTime;
+    private Timestamp updateTime;
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum() {
+        return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
+    }
 
 
 }

@@ -3,14 +3,18 @@ package com.chenjiewen.wxsell.model;
 
 import com.chenjiewen.wxsell.enums.OrderStatusEnum;
 import com.chenjiewen.wxsell.enums.PayStatusEnum;
+import com.chenjiewen.wxsell.utils.EnumUtil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 
 @Data
 public class OrderMaster {
+
 
     /** 订单id. */
 
@@ -38,11 +42,21 @@ public class OrderMaster {
     private Integer payStatus = PayStatusEnum.WAIT.getCode();
 
     /** 创建时间. */
-    private Date createTime;
+    private Timestamp createTime;
 
     /** 更新时间. */
-    private Date updateTime;
+    private Timestamp updateTime;
 
     private List<OrderDetail> orderDetailList;
+
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum() {
+        return EnumUtil.getByCode(orderStatus, OrderStatusEnum.class);
+    }
+
+    @JsonIgnore
+    public PayStatusEnum getPayStatusEnum() {
+        return EnumUtil.getByCode(payStatus, PayStatusEnum.class);
+    }
 
 }

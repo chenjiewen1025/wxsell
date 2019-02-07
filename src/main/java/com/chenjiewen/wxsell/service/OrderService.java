@@ -1,6 +1,7 @@
 package com.chenjiewen.wxsell.service;
 
 import com.chenjiewen.wxsell.model.OrderMaster;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface OrderService {
     OrderMaster selectByOrderId(String orderId);
 
     //查询订单列表
-    List<OrderMaster> selectAll();
+    PageInfo<OrderMaster> selectAll(int page, int size);
 
     List<OrderMaster> selectByBuyerOpenid(String buyerOpenid);
     //取消订单

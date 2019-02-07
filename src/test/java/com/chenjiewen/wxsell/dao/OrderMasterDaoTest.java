@@ -1,8 +1,10 @@
 package com.chenjiewen.wxsell.dao;
 
 import com.chenjiewen.wxsell.model.OrderMaster;
+import com.chenjiewen.wxsell.service.OrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -19,10 +21,17 @@ public class OrderMasterDaoTest {
 
     @Resource
     private OrderMasterDao orderMasterDao;
+    @Autowired
+    private OrderService orderService;
+    @Test
+    public void selec() {
+       // List<OrderMaster> test = orderService.selectAll(1,7);
+        //System.out.println(test.size());
+    }
     @Test
     public void selectByBuyerOpenid() {
-        List<OrderMaster> test = orderMasterDao.selectByBuyerOpenid("1");
-        System.out.println(test.size());
+        //List<OrderMaster> test = orderMasterDao.selectAll();
+       // System.out.println(test.size());
     }
     @Test
     public  void addOrderMasterTest(){

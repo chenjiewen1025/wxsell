@@ -18,6 +18,7 @@ spring:
       # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
     timeBetweenEvictionRunsMillis: 30000
 
+
 mybatis:
   #实体类所做包
   type-aliases-package: com.chenjiewen.wxsell.model
@@ -26,3 +27,13 @@ mybatis:
   #开启驼峰转换
   configuration:
     map-underscore-to-camel-case: true
+
+wechat:
+  mpAppId: wxef9ffe8df044941e
+  mpAppSecret: 8608baea6b73936076e3dd61684fca97
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

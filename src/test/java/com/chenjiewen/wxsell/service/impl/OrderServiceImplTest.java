@@ -55,7 +55,7 @@ public class OrderServiceImplTest {
 
     @Test
     public void selectAll() {
-        List<OrderMaster> orderMasters = orderService.selectAll();
+       // List<OrderMaster> orderMasters = orderService.selectAll(1,5);
     }
 
     @Test
