@@ -12,6 +12,19 @@
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-md-12 column">
+                    <div class="container">
+                        <div class="row clearfix">
+                            <div class="col-md-4 column">
+                                <a type="button" class="btn btn-default btn-primary" href="/sell/seller/product/list?type=0">在架列表</a>
+                            </div>
+                            <div class="col-md-4 column">
+                                <a type="button" class="btn btn-default btn-primary" href="/sell/seller/product/list">全部列表</a>
+                            </div>
+                            <div class="col-md-4 column">
+                                <a type="button" class="btn btn-default btn-primary" href="/sell/seller/product/list?type=1">下架列表</a>
+                            </div>
+                        </div>
+                    </div>
                     <table class="table table-bordered table-condensed">
                         <thead>
                         <tr>

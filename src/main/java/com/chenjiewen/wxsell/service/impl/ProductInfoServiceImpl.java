@@ -36,8 +36,17 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     }
 
     @Override
-    public List<ProductInfo> selectUpAll() {
-        return productInfoDao.selectByProductStatus(ProductStatusEnum.UP.getCode());
+    public PageInfo<ProductInfo> selectUpAll(int page,int size) {
+        PageHelper.startPage(page, size);
+        PageInfo<ProductInfo> pageInfo = new PageInfo<>(productInfoDao.selectByProductStatus(ProductStatusEnum.UP.getCode()));
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<ProductInfo> selectDownAll(int page,int size) {
+        PageHelper.startPage(page, size);
+        PageInfo<ProductInfo> pageInfo = new PageInfo<>(productInfoDao.selectByProductStatus(ProductStatusEnum.DOWN.getCode()));
+        return pageInfo;
     }
 
     @Override
@@ -115,6 +124,11 @@ public class ProductInfoServiceImpl implements ProductInfoService {
             throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
         }
         productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
+        productInfoDao.updateProductInfo(productInfo);
+    }
+
+    @Override
+    public void update(ProductInfo productInfo) {
         productInfoDao.updateProductInfo(productInfo);
     }
 }

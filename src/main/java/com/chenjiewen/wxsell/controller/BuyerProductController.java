@@ -3,6 +3,8 @@ package com.chenjiewen.wxsell.controller;
 import com.chenjiewen.wxsell.VO.ProductInfoVO;
 import com.chenjiewen.wxsell.VO.ProductVO;
 import com.chenjiewen.wxsell.VO.ResultVO;
+import com.chenjiewen.wxsell.dao.ProductInfoDao;
+import com.chenjiewen.wxsell.enums.ProductStatusEnum;
 import com.chenjiewen.wxsell.model.ProductCategory;
 import com.chenjiewen.wxsell.model.ProductInfo;
 import com.chenjiewen.wxsell.service.ProductCategoryService;
@@ -25,6 +27,9 @@ public class BuyerProductController {
     private ProductInfoService productInfoService;
     @Resource
     private ProductCategoryService productCategoryService;
+
+    private ProductInfoDao productInfoDao;
+
     @RequestMapping("/list")
     public ResultVO list(){
 
@@ -35,7 +40,7 @@ public class BuyerProductController {
      3.数据拼装
          */
         //1
-        List<ProductInfo> productInfoList = productInfoService.selectUpAll();
+        List<ProductInfo> productInfoList = productInfoDao.selectByProductStatus(ProductStatusEnum.UP.getCode());
 
         //2
         List<Integer> categoryTypeList = new ArrayList<>();

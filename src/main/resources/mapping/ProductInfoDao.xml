@@ -31,6 +31,7 @@
             <if test="categoryType != null">category_type=#{categoryType},</if>
             <if test="productStatus != null">product_status=#{productStatus}</if>
         </set>
+
         where product_id=#{productId}
     </update>
     <delete id="deleteById">

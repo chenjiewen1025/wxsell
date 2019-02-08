@@ -14,8 +14,8 @@ public interface ProductInfoService {
 
     PageInfo<ProductInfo> selectAll(int page,int size);
 
-
-    List<ProductInfo> selectUpAll();  //在架
+    PageInfo<ProductInfo> selectUpAll(int page,int size);  //在架
+    PageInfo<ProductInfo> selectDownAll(int page,int size);
     void deleteById(String id);
     void addProductInfo(ProductInfo productInfo);
     //加库存
@@ -27,4 +27,6 @@ public interface ProductInfoService {
     void onSale(String productId);
     //下架
     void offSale(String productId);
+
+    void update(ProductInfo productInfo);
 }
