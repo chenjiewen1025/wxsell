@@ -23,7 +23,7 @@
         update product_category
         <set>
             <if test="categoryName != null">category_name=#{categoryName},</if>
-            <if test="categoryType != null">category_name=#{categoryType},</if>
+            <if test="categoryType != null">category_type=#{categoryType},</if>
         </set>
         where category_id=#{categoryId}
     </update>

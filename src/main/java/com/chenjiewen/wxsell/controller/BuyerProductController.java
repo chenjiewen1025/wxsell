@@ -12,6 +12,7 @@ import com.chenjiewen.wxsell.service.ProductInfoService;
 import com.chenjiewen.wxsell.utils.ResultVOUtil;
 import com.fasterxml.jackson.databind.util.BeanUtil;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +29,7 @@ public class BuyerProductController {
     @Resource
     private ProductCategoryService productCategoryService;
 
+    @Resource
     private ProductInfoDao productInfoDao;
 
     @RequestMapping("/list")

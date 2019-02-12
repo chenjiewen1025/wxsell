@@ -3,14 +3,12 @@ package com.chenjiewen.wxsell.controller;
 
 import com.chenjiewen.wxsell.exception.SellException;
 import com.chenjiewen.wxsell.form.ProductForm;
-import com.chenjiewen.wxsell.model.OrderMaster;
 import com.chenjiewen.wxsell.model.ProductCategory;
 import com.chenjiewen.wxsell.model.ProductInfo;
 import com.chenjiewen.wxsell.service.ProductCategoryService;
 import com.chenjiewen.wxsell.service.ProductInfoService;
 import com.chenjiewen.wxsell.utils.KeyUtil;
 import com.github.pagehelper.PageInfo;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -155,6 +153,25 @@ public class SellerProductController {
         modelAndView.addObject("url", "/sell/seller/product/list");
         modelAndView.setViewName("common/success");
         return modelAndView;
+    }
+
+    @GetMapping("/delete")
+    public ModelAndView delete(@RequestParam("productId") String productId){
+
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            productInfoService.deleteById(productId);
+        }
+        catch (SellException e){
+            modelAndView.addObject("msg",e.getMessage());
+            modelAndView.addObject("url","/sell/seller/product/list");
+            modelAndView.setViewName("common/error");
+            return modelAndView;
+        }
+        modelAndView.addObject("url","/sell/seller/product/list");
+        modelAndView.setViewName("common/success");
+        return modelAndView;
+
     }
 
 }

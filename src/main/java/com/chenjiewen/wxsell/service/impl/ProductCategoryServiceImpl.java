@@ -30,7 +30,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
    //通过id查询
-    public ProductCategory selectByCategoryId(int id) {
+    public ProductCategory selectByCategoryId(Integer id) {
         return  productCategoryDao.selectByCategoryId(id);
     }
 

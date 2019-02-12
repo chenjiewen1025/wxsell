@@ -13,7 +13,7 @@ public interface ProductCategoryDao {
     //通过type查
     List<ProductCategory> selectByCategoryTypeIn(@Param("categoryType") List<Integer> categoryType);
     //通过id查
-    ProductCategory selectByCategoryId(@Param("id") int id);
+    ProductCategory selectByCategoryId(@Param("categoryId") Integer id);
     //更新
     void updateProductCategory(ProductCategory productCategory);
     //通过id删除

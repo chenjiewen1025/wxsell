@@ -5,7 +5,7 @@ server:
 spring:
   #数据源配置
   datasource:
-    url: jdbc:mysql://35.220.171.186:3306/sell?useSSL=false
+    url: jdbc:mysql://35.220.208.164:3306/sell?useSSL=false
     username: root
     password: "@Chenjiewen1996"
     driver-class-name: com.mysql.jdbc.Driver
@@ -17,6 +17,10 @@ spring:
     maxWait: 60000
       # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
     timeBetweenEvictionRunsMillis: 30000
+  redis:
+    host: 35.220.208.164
+    port: 6379
+
 
 
 mybatis:
@@ -31,6 +35,8 @@ mybatis:
 wechat:
   mpAppId: wxef9ffe8df044941e
   mpAppSecret: 8608baea6b73936076e3dd61684fca97
+
+
 
 pagehelper:
   helper-dialect: mysql

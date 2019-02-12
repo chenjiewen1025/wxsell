@@ -11,11 +11,14 @@ import com.chenjiewen.wxsell.model.OrderDetail;
 import com.chenjiewen.wxsell.model.OrderMaster;
 import com.chenjiewen.wxsell.model.ProductInfo;
 import com.chenjiewen.wxsell.service.OrderService;
+import com.chenjiewen.wxsell.service.PayService;
 import com.chenjiewen.wxsell.service.ProductInfoService;
+import com.chenjiewen.wxsell.service.WebSocket;
 import com.chenjiewen.wxsell.utils.KeyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -38,6 +41,11 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private OrderDetailDao orderDetailDao;
 
+    @Resource
+    private PayService payService;
+
+    @Autowired
+    private WebSocket webSocket;
 
     @Override
     @Transactional
@@ -84,6 +92,8 @@ public class OrderServiceImpl implements OrderService {
         //4
 
         productInfoService.decreaseStock(carDTOList);
+
+        webSocket.sendMessage("有新订单");
         return orderMaster;
     }
 
@@ -133,6 +143,7 @@ public class OrderServiceImpl implements OrderService {
        if (orderMaster.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode()))
        {
            //todo
+           payService.create(orderMaster,"订单已取消掉！");
        }
         return orderMaster;
 
@@ -154,6 +165,7 @@ public class OrderServiceImpl implements OrderService {
 
         orderMaster.setOrderStatus(OrderStatusEnum.FINISHED.getCode());
         orderMasterDao.updateMaster(orderMaster);
+        payService.create(orderMaster,"订单已完成！");
 
         return orderMaster;
     }
@@ -173,7 +185,7 @@ public class OrderServiceImpl implements OrderService {
 
         orderMaster.setPayStatus(PayStatusEnum.SUCCESS.getCode());
         orderMasterDao.updateMaster(orderMaster);
-
+        payService.create(orderMaster,"支付成功！请留意后续！");
         return orderMaster;
     }
 }

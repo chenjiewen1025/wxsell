@@ -11,7 +11,7 @@ public interface ProductCategoryService {
     void addProductCategory(ProductCategory productCategory);
     List<ProductCategory> selectByCategoryTypeIn(List<Integer> categoryType);
     List<ProductCategory> selectAllProductCategory();
-    ProductCategory selectByCategoryId(int id);
+    ProductCategory selectByCategoryId(Integer id);
     //更新
     void updateProductCategory(ProductCategory productCategory);
     //通过id删除

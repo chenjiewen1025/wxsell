@@ -2,8 +2,10 @@ package com.chenjiewen.wxsell.service;
 
 import com.chenjiewen.wxsell.model.OrderMaster;
 
-public interface PayService {
+public interface PushMessage {
 
 
-    void  create(OrderMaster orderMaster,String mess);
+    void orderStatus(OrderMaster orderMaster,String mess);
+
+
 }

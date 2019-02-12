@@ -38,7 +38,7 @@
                             <th>创建时间</th>
                             <th>修改时间</th>
                             <th>状态</th>
-                            <th colspan="2">操作</th>
+                            <th colspan="3">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -66,6 +66,7 @@
                                     <a href="/sell/seller/product/on_sale?productId=${productInfo.productId}">上架</a>
                                 </#if>
                             </td>
+                            <td><a href="/sell/seller/product/delete?productId=${productInfo.productId}">删除</a></td>
                         </tr>
                         </#list>
                         </tbody>
