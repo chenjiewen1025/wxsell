@@ -11,6 +11,8 @@ import com.chenjiewen.wxsell.service.ProductCategoryService;
 import com.chenjiewen.wxsell.service.ProductInfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +38,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     }
 
     @Override
+
     public PageInfo<ProductInfo> selectUpAll(int page,int size) {
         PageHelper.startPage(page, size);
         PageInfo<ProductInfo> pageInfo = new PageInfo<>(productInfoDao.selectByProductStatus(ProductStatusEnum.UP.getCode()));
@@ -128,6 +131,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     }
 
     @Override
+
     public void update(ProductInfo productInfo) {
         productInfoDao.updateProductInfo(productInfo);
     }

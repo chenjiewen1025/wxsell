@@ -6,6 +6,8 @@ import com.chenjiewen.wxsell.enums.PayStatusEnum;
 import com.chenjiewen.wxsell.utils.EnumUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -13,9 +15,10 @@ import java.util.List;
 
 
 @Data
-public class OrderMaster {
+public class OrderMaster implements Serializable {
 
 
+    private static final long serialVersionUID = 956671292231950475L;
     /** 订单id. */
 
     private String orderId;

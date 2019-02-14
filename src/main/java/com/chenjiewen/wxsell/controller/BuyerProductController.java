@@ -13,6 +13,7 @@ import com.chenjiewen.wxsell.utils.ResultVOUtil;
 import com.fasterxml.jackson.databind.util.BeanUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +34,7 @@ public class BuyerProductController {
     private ProductInfoDao productInfoDao;
 
     @RequestMapping("/list")
+    @Cacheable(cacheNames = "product",key = "123")
     public ResultVO list(){
 
         /*

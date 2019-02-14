@@ -2,12 +2,15 @@ package com.chenjiewen.wxsell.VO;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 
 @Data
-public class ResultVO<T> {
+public class ResultVO<T> implements Serializable {
 
+
+    private static final long serialVersionUID = -2763635132821270212L;
     /** 错误码. */
     private Integer code;
 

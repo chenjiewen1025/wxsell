@@ -12,6 +12,8 @@ import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -62,6 +64,7 @@ public class SellerProductController {
     }
 
     @GetMapping("/on_sale")
+    @CacheEvict(cacheNames = "product",key = "123")
     public ModelAndView onSale(@RequestParam("productId") String productId){
         ModelAndView modelAndView = new ModelAndView();
         try {
@@ -81,6 +84,7 @@ public class SellerProductController {
     }
 
     @GetMapping("/off_sale")
+    @CacheEvict(cacheNames = "product",key = "123")
     public ModelAndView offSale(@RequestParam("productId") String productId){
         ModelAndView modelAndView = new ModelAndView();
         try {
@@ -117,6 +121,7 @@ public class SellerProductController {
 
 //    添加，修改商品
     @PostMapping("/save")
+    @CacheEvict(cacheNames = "product",key = "123")
     public ModelAndView save(@Valid ProductForm form,
                              BindingResult bindingResult
                              ){
@@ -156,6 +161,7 @@ public class SellerProductController {
     }
 
     @GetMapping("/delete")
+    @CacheEvict(cacheNames = "product",key = "123")
     public ModelAndView delete(@RequestParam("productId") String productId){
 
         ModelAndView modelAndView = new ModelAndView();

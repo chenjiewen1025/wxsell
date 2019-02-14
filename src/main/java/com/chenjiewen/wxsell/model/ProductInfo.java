@@ -6,11 +6,16 @@ import com.chenjiewen.wxsell.utils.EnumUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Data
-public class ProductInfo {
+public class ProductInfo implements Serializable {
+
+
+    private static final long serialVersionUID = -2023699050290687356L;
+
     private String productId;
 
     /** 名字. */
