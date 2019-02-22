@@ -32,7 +32,7 @@ public class WeChatController {
     @GetMapping("/authorize")
     public String authorize(@RequestParam("returnUrl") String returnUrl){
 
-        String url = "http://rq9s4mehpv.51http.tech/sell/wechat/userInfo";
+        String url = "http://54quly14pw.51tcp.vip:43218/sell/wechat/userInfo";
         String result = null;
         try {
             result = wxMpService.oauth2buildAuthorizationUrl(url, WxConsts.OAuth2Scope.SNSAPI_USERINFO, URLEncoder.encode(returnUrl, "UTF-8"));
@@ -40,6 +40,7 @@ public class WeChatController {
             e.printStackTrace();
         }
         log.info("wechat网页获取code",result);
+        log.info(returnUrl);
        return  "redirect:"+result;
     }
 
@@ -55,6 +56,7 @@ public class WeChatController {
             throw new SellException(ResultEnum.WECHAT_MP_ERROR.getCode(), e.getError().getErrorMsg());
         }
 
+        log.info(returnUrl);
         String openId = wxMpOAuth2AccessToken.getOpenId();
             log.info(openId);
         return "redirect:" + returnUrl + "?openid=" + openId;

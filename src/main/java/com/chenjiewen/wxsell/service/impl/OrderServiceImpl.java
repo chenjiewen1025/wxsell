@@ -94,7 +94,14 @@ public class OrderServiceImpl implements OrderService {
 
         productInfoService.decreaseStock(carDTOList);
 
-        webSocket.sendMessage("有新订单");
+        try {
+            webSocket.sendMessage("有新订单");
+        }
+        catch (Exception e)
+        {
+            e.getMessage();
+        }
+
         return orderMaster;
     }
 
@@ -177,7 +184,7 @@ public class OrderServiceImpl implements OrderService {
 
         if (!orderMaster.getOrderStatus().equals(OrderStatusEnum.NEW.getCode()))
         {
-            throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
         if (!orderMaster.getPayStatus().equals(PayStatusEnum.WAIT.getCode()))
         {
@@ -185,6 +192,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         orderMaster.setPayStatus(PayStatusEnum.SUCCESS.getCode());
+
         orderMasterDao.updateMaster(orderMaster);
         payService.create(orderMaster,"支付成功！请留意后续！");
         return orderMaster;

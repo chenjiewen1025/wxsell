@@ -13,6 +13,6 @@ public class SellExceptionHandler {
     //http://sell.natapp4.cc/sell/wechat/qrAuthorize?returnUrl=http://sell.natapp4.cc/sell/seller/login
     @ExceptionHandler(value = SellerAuthorizeException.class)
     public ModelAndView handlerAuthorizeException() {
-        return new ModelAndView("redirect:http://127.0.0.1/sell/seller/index");
+        return new ModelAndView("redirect:http://35.220.208.164/sell/seller/index");
     }
 }

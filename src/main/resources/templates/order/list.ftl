@@ -114,7 +114,7 @@
 
     var websocket = null;
     if('WebSocket' in window) {
-        websocket = new WebSocket('ws://rq9s4mehpv.51http.tech/sell/webSocket');
+        websocket = new WebSocket('ws://35.220.208.164:8080/sell/webSocket');
     }else {
         alert('该浏览器不支持websocket!');
     }

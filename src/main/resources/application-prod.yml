@@ -20,6 +20,7 @@ spring:
   redis:
     host: 35.220.208.164
     port: 6379
+    password: chenjiewen
 
 
 
