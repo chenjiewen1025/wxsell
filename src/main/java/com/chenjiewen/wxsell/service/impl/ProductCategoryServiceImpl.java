@@ -25,8 +25,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     //查询全部
-    public List<ProductCategory> selectAllProductCategory() {
-        return productCategoryDao.selectAllProductCategory();
+    public List<ProductCategory> selectAllProductCategory( String sellerId) {
+        return productCategoryDao.selectAllProductCategory(sellerId);
     }
 
    //通过id查询

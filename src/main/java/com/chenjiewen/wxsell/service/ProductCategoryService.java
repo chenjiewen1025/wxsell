@@ -10,7 +10,7 @@ import java.util.List;
 public interface ProductCategoryService {
     void addProductCategory(ProductCategory productCategory);
     List<ProductCategory> selectByCategoryTypeIn(List<Integer> categoryType);
-    List<ProductCategory> selectAllProductCategory();
+    List<ProductCategory> selectAllProductCategory(String sellerId);
     ProductCategory selectByCategoryId(Integer id);
     //更新
     void updateProductCategory(ProductCategory productCategory);

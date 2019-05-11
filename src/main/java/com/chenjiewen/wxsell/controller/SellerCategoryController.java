@@ -3,18 +3,18 @@ package com.chenjiewen.wxsell.controller;
 import com.chenjiewen.wxsell.exception.SellException;
 import com.chenjiewen.wxsell.form.CategoryForm;
 import com.chenjiewen.wxsell.model.ProductCategory;
+import com.chenjiewen.wxsell.model.SellerInfo;
 import com.chenjiewen.wxsell.service.ProductCategoryService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import net.sf.json.JSONArray;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -26,12 +26,12 @@ public class SellerCategoryController {
     private ProductCategoryService productCategoryService;
 
     @RequestMapping("/list")
-    public ModelAndView list(){
-
+    public ModelAndView list(HttpSession session){
+        SellerInfo seller = (SellerInfo) session.getAttribute("seller");
         ModelAndView modelAndView = new ModelAndView("category/list");
-        List<ProductCategory> productCategoryList = productCategoryService.selectAllProductCategory();
+        List<ProductCategory> temp = productCategoryService.selectAllProductCategory(seller.getSellerId());
+        String productCategoryList = JSONArray.fromObject(temp).toString();
         modelAndView.addObject("categoryList",productCategoryList);
-
         return modelAndView;
 
     }
@@ -49,15 +49,14 @@ public class SellerCategoryController {
     }
 
     @PostMapping("/save")
-    public ModelAndView save(@Valid CategoryForm form, BindingResult bindingResult){
+    @ResponseBody
+    public String save(@Valid CategoryForm form, BindingResult bindingResult){
 
-        ModelAndView modelAndView = new ModelAndView();
+
         if (bindingResult.hasErrors())
         {
-            modelAndView.addObject("msg",bindingResult.getFieldError().getDefaultMessage());
-            modelAndView.addObject("url","/sell/seller/category/index");
-            modelAndView.setViewName("common/error");
-            return modelAndView;
+
+            return bindingResult.getFieldError().getDefaultMessage();
         }
 
         ProductCategory productCategory = new ProductCategory();
@@ -81,14 +80,11 @@ public class SellerCategoryController {
         }
         catch (SellException e)
         {
-            modelAndView.addObject("msg",e.getMessage());
-            modelAndView.addObject("url","/sell/seller/category/index");
-            modelAndView.setViewName("common/error");
+            return e.getMessage();
         }
 
-        modelAndView.setViewName("common/success");
-        modelAndView.addObject("url","/sell/seller/category/list");
-        return modelAndView;
+
+        return "保存成功！";
 
     }
 

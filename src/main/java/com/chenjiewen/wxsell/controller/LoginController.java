@@ -7,6 +7,7 @@ import com.chenjiewen.wxsell.enums.ResultEnum;
 import com.chenjiewen.wxsell.model.SellerInfo;
 import com.chenjiewen.wxsell.service.SellerService;
 import com.chenjiewen.wxsell.utils.CookieUtil;
+import com.chenjiewen.wxsell.utils.MD5;
 import com.mysql.jdbc.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -20,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -47,7 +50,7 @@ public class LoginController {
     @RequestMapping("/login")
     public ModelAndView login(@RequestParam("username") String username,
                               @RequestParam("password") String password,
-                              HttpServletResponse response){
+                              HttpServletResponse response, HttpSession session){
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -60,7 +63,16 @@ public class LoginController {
             modelAndView.setViewName("common/error");
             return modelAndView;
         }
-        if (!password.equals(sellerInfo.getPassword()))
+
+
+
+        boolean istrue = false;
+        try {
+             istrue = MD5.verify(password,"chenjiewen",sellerInfo.getPassword());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!istrue)
         {
             modelAndView.addObject("msg","密码错误！！！");
             modelAndView.addObject("url","/sell/seller/index");
@@ -77,7 +89,7 @@ public class LoginController {
 
         //token set cookie
         CookieUtil.set(response, CookieConstant.TOKEN,token,expire);
-
+        session.setAttribute("seller", sellerInfo);
         modelAndView.addObject("msg","登录成功！！！");
         modelAndView.addObject("url","/sell/seller/order/list");
         modelAndView.setViewName("common/success");

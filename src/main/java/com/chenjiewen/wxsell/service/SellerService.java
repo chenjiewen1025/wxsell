@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 public interface SellerService {
 
 
-    SellerInfo selectByOpenid(String openid);
+    SellerInfo selectById(String sellerId);
 
     SellerInfo selectByUsername(String username);
 
+    void updateBase(SellerInfo sellerInfo);
 }

@@ -12,10 +12,10 @@ public interface ProductInfoService {
     ProductInfo selectByProductId(String productId);
 
 
-    PageInfo<ProductInfo> selectAll(int page,int size);
+    List<ProductInfo> selectAll(String sellerId);
 
-    PageInfo<ProductInfo> selectUpAll(int page,int size);  //在架
-    PageInfo<ProductInfo> selectDownAll(int page,int size);
+    List<ProductInfo> selectUpAll();  //在架
+    List<ProductInfo> selectDownAll();
     void deleteById(String id);
     void addProductInfo(ProductInfo productInfo);
     //加库存

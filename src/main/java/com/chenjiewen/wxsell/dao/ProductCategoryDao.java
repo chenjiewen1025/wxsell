@@ -9,7 +9,7 @@ public interface ProductCategoryDao {
     //增加
     void addProductCategory(ProductCategory productCategory);
     //查询全部
-    List<ProductCategory> selectAllProductCategory();
+    List<ProductCategory> selectAllProductCategory(@Param("sellerId") String sellerId);
     //通过type查
     List<ProductCategory> selectByCategoryTypeIn(@Param("categoryType") List<Integer> categoryType);
     //通过id查

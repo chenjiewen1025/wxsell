@@ -30,7 +30,8 @@ public class SellerAuthorizeAspect {
     private StringRedisTemplate redisTemplate;
 
     @Pointcut("execution(public * com.chenjiewen.wxsell.controller.Sell*.*(..))" +
-            "&& !execution(public * com.chenjiewen.wxsell.controller.LoginController.*(..))")
+            "&& !execution(public * com.chenjiewen.wxsell.controller.LoginController.*(..))"+
+            "&& !execution(public * com.chenjiewen.wxsell.controller.SellerApplyController.*(..))")
     public void verify() {}
 
     @Before("verify()")

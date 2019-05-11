@@ -112,9 +112,9 @@ public class OrderServiceImpl implements OrderService {
 
 
 
-    public PageInfo<OrderMaster> selectAll(int page,int size) {
-        PageHelper.startPage(page, size);
-        PageInfo<OrderMaster> pageInfo = new PageInfo<>(orderMasterDao.selectAll());
+    public List<OrderMaster> selectAll(String sellerId) {
+
+        List<OrderMaster> pageInfo = orderMasterDao.selectAll(sellerId);
         return pageInfo;
     }
 

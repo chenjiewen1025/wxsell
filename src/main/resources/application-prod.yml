@@ -5,9 +5,9 @@ server:
 spring:
   #数据源配置
   datasource:
-    url: jdbc:mysql://35.220.208.164:3306/sell?useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/sell?useSSL=false&useUnicode=true&characterEncoding=utf8
     username: root
-    password: "@Chenjiewen1996"
+    password: "chenjiewen"
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     connectionProperties: druid.stat.mergeSql=true
@@ -22,6 +22,9 @@ spring:
     port: 6379
     password: chenjiewen
 
+file.staticAccessPath: /api/file/**
+
+file.uploadFolder: /Users/chenjiewen/upload/
 
 
 mybatis:

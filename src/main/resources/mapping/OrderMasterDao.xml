@@ -7,6 +7,7 @@
     <resultMap type="com.chenjiewen.wxsell.model.OrderMaster" id="orderMasterMaps">
         <id column="order_id" property="orderId"/>
         <result column="buyer_name" property="buyerName"/>
+        <result column="seller_id" property="sellerId"/>
         <result column="buyer_phone" property="buyerPhone"/>
         <result column="buyer_address" property="buyerAddress"/>
         <result column="buyer_openid" property="buyerOpenid"/>
@@ -36,15 +37,15 @@
         select * from order_master where order_id = #{orderId}
     </select>
     <select id="selectAll" resultMap="orderMasterMaps">
-        select  * from order_master order by create_time desc
+        select  * from order_master where seller_id = #{sellerId} order by create_time desc
     </select>
     <insert id="addOrderMaster" >
         insert into order_master
         (order_id,buyer_name,buyer_phone,buyer_address,
-        buyer_openid,order_amount,order_status,pay_status)
+        buyer_openid,order_amount,order_status,pay_status,seller_id)
         value
         (#{orderId},#{buyerName},#{buyerPhone},#{buyerAddress},
-        #{buyerOpenid},#{orderAmount},#{orderStatus},#{payStatus})
+        #{buyerOpenid},#{orderAmount},#{orderStatus},#{payStatus},#{sellerId})
     </insert>
     <update id="updateMaster" >
         update order_master

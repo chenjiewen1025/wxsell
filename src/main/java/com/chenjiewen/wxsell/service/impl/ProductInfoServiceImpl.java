@@ -31,25 +31,23 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     }
 
     @Override
-    public PageInfo<ProductInfo> selectAll(int page,int size) {
-        PageHelper.startPage(page, size);
-        PageInfo<ProductInfo> pageInfo = new PageInfo<>(productInfoDao.selectAll());
-        return pageInfo;
+    public List<ProductInfo> selectAll(String sellerId) {
+
+        return productInfoDao.selectAll(sellerId) ;
     }
 
     @Override
 
-    public PageInfo<ProductInfo> selectUpAll(int page,int size) {
-        PageHelper.startPage(page, size);
-        PageInfo<ProductInfo> pageInfo = new PageInfo<>(productInfoDao.selectByProductStatus(ProductStatusEnum.UP.getCode()));
-        return pageInfo;
+    public List<ProductInfo> selectUpAll() {
+
+        return   productInfoDao.selectByProductStatus(ProductStatusEnum.UP.getCode());
     }
 
     @Override
-    public PageInfo<ProductInfo> selectDownAll(int page,int size) {
-        PageHelper.startPage(page, size);
-        PageInfo<ProductInfo> pageInfo = new PageInfo<>(productInfoDao.selectByProductStatus(ProductStatusEnum.DOWN.getCode()));
-        return pageInfo;
+    public List<ProductInfo> selectDownAll() {
+
+
+        return  productInfoDao.selectByProductStatus(ProductStatusEnum.DOWN.getCode());
     }
 
     @Override

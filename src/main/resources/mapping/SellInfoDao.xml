@@ -5,11 +5,21 @@
 <mapper namespace="com.chenjiewen.wxsell.dao.SellInfoDao">
 
     <select id="selectByOpenid" resultType="com.chenjiewen.wxsell.model.SellerInfo">
-        select * from seller_info where openid = #{openid}
+        select * from seller_info where seller_id = #{sellerId}
     </select>
 
     <select id="selectByUsername" resultType="com.chenjiewen.wxsell.model.SellerInfo">
         select * from seller_info where username = #{username}
     </select>
+
+    <update id="updateBase">
+        update seller_info
+        set shop_name = #{shopName},
+        shop_des = #{shopDes},
+        shop_img = #{shopImg},
+        shop_type = #{shopType},
+        shop_able = #{shopAble}
+        where seller_id = #{sellerId}
+    </update>
 
 </mapper>

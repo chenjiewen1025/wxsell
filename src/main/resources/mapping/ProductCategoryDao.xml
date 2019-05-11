@@ -5,10 +5,11 @@
 <mapper namespace="com.chenjiewen.wxsell.dao.ProductCategoryDao">
 
     <insert id="addProductCategory" >
-        insert into product_category(category_name,category_type) value (#{categoryName},#{categoryType})
+        insert into product_category(category_name,category_type,seller_id)
+        value (#{categoryName},#{categoryType},#{sellerId)
     </insert>
     <select id="selectAllProductCategory" resultType="com.chenjiewen.wxsell.model.ProductCategory" >
-        SELECT * FROM product_category
+        SELECT * FROM product_category  where seller_id = #{sellerId}
     </select>
     <select id="selectByCategoryTypeIn" resultType="com.chenjiewen.wxsell.model.ProductCategory">
         select * from product_category where category_type in

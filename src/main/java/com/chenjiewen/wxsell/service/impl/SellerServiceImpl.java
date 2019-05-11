@@ -17,12 +17,17 @@ public class SellerServiceImpl implements SellerService {
     private SellInfoDao sellInfoDao;
 
 
-    public SellerInfo selectByOpenid(String openid) {
-        return sellInfoDao.selectByOpenid(openid);
+    public SellerInfo selectById(String sellerId) {
+        return sellInfoDao.selectById(sellerId);
     }
 
     @Override
     public SellerInfo selectByUsername(String username) {
         return sellInfoDao.selectByUsername(username);
+    }
+
+    @Override
+    public void updateBase(SellerInfo sellerInfo) {
+        sellInfoDao.updateBase(sellerInfo);
     }
 }

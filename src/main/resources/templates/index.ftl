@@ -32,7 +32,10 @@
                         </div>
 
                        <button type="submit" class="btn btn-default">登录</button>
+
                     </form>
+                    <a type="button" class="btn btn-default" href="/sell/seller/apply/index">商家申请入驻</a>
+
                 </div>
                 <div class="col-md-4 column">
                 </div>

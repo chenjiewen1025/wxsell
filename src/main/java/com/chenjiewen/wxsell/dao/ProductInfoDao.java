@@ -10,6 +10,6 @@ public interface ProductInfoDao {
     void deleteById(@Param("productId") String id);
     ProductInfo selectByProductId(@Param("productId") String productId);
     List<ProductInfo> selectByProductStatus(@Param("productStatus") Integer productStatus);
-    List<ProductInfo> selectAll();
+    List<ProductInfo> selectAll(@Param("sellerId") String sellerId);
     void updateProductInfo(ProductInfo productInfo);
 }

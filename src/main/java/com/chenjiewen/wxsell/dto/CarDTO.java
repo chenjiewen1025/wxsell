@@ -2,7 +2,6 @@ package com.chenjiewen.wxsell.dto;
 
 
 import lombok.Data;
-
 @Data
 public class CarDTO {
 

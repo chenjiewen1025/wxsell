@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Param;
 
 public interface SellInfoDao {
 
-    SellerInfo selectByOpenid(@Param("openid") String openid);
+    SellerInfo selectById(@Param("sellerId") String sellerId);
     SellerInfo selectByUsername(@Param("username") String username);
+
+    void updateBase(SellerInfo sellerInfo);
 }

@@ -10,15 +10,15 @@
         select * from product_info where product_id = #{productId}
     </select>
     <select id="selectAll" resultType="com.chenjiewen.wxsell.model.ProductInfo">
-        select * from product_info
+        select * from product_info where seller_id = #{sellerId}
     </select>
     <insert id="addProductInfo">
         insert into product_info
         (product_id,product_name,product_price,product_stock,
-        product_description,product_icon,category_type,product_status)
+        product_description,product_icon,category_type,product_status,seller_id)
         value
         (#{productId},#{productName},#{productPrice},#{productStock},
-        #{productDescription},#{productIcon},#{categoryType},#{productStatus})
+        #{productDescription},#{productIcon},#{categoryType},#{productStatus},#{sellerId})
     </insert>
     <update id="updateProductInfo">
         update product_info

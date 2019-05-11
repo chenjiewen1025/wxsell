@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.chenjiewen.wxsell.dao.SellerCategoryDao">
+
+    <select id="selectAll" resultType="com.chenjiewen.wxsell.model.SellerCategory">
+        select * from seller_category  order by create_time desc
+    </select>
+
+    <insert id="add">
+        insert into seller_category
+        (id,name,value)
+        value
+        (
+        #{id},#{name},#{value}
+        )
+    </insert>
+
+</mapper>
