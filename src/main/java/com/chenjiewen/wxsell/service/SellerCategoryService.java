@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface SellerCategoryService {
     List<SellerCategory> selectAll();
-
+    void updateById(String id,String name);
     void add(SellerCategory sellerCategory);
 }

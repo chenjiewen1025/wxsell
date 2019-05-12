@@ -17,6 +17,11 @@ public class SellerServiceImpl implements SellerService {
     private SellInfoDao sellInfoDao;
 
 
+    @Override
+    public void addSeller(SellerInfo sellerInfo) {
+        sellInfoDao.addSeller(sellerInfo);
+    }
+
     public SellerInfo selectById(String sellerId) {
         return sellInfoDao.selectById(sellerId);
     }
@@ -24,6 +29,11 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public SellerInfo selectByUsername(String username) {
         return sellInfoDao.selectByUsername(username);
+    }
+
+    @Override
+    public void updatePassword(SellerInfo sellerInfo) {
+        sellInfoDao.updatePassword(sellerInfo);
     }
 
     @Override

@@ -5,8 +5,8 @@
 <mapper namespace="com.chenjiewen.wxsell.dao.ProductCategoryDao">
 
     <insert id="addProductCategory" >
-        insert into product_category(category_name,category_type,seller_id)
-        value (#{categoryName},#{categoryType},#{sellerId)
+        insert into product_category(category_id,category_name,seller_id)
+        value (#{categoryId},#{categoryName},#{sellerId})
     </insert>
     <select id="selectAllProductCategory" resultType="com.chenjiewen.wxsell.model.ProductCategory" >
         SELECT * FROM product_category  where seller_id = #{sellerId}
@@ -24,7 +24,7 @@
         update product_category
         <set>
             <if test="categoryName != null">category_name=#{categoryName},</if>
-            <if test="categoryType != null">category_type=#{categoryType},</if>
+
         </set>
         where category_id=#{categoryId}
     </update>

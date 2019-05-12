@@ -11,7 +11,7 @@ public class ProductCategory {
 
 
     private String sellerId;
-    private Integer categoryId;
+    private String categoryId;
     private String categoryName;
     private Integer categoryType;
     private Timestamp createTime;
@@ -25,11 +25,11 @@ public class ProductCategory {
         this.sellerId = sellerId;
     }
 
-    public Integer getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 

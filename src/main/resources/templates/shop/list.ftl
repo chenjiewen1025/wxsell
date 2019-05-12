@@ -26,20 +26,21 @@
                                 <div class="layui-col-md12">
                                 <div class="layui-col-md6 center-block">
 
-                                    <p class="bg-info">店铺名称：${seller.shopName}</p>
-                                    <p class="bg-success" style="margin-top: 15px;">创建时间：${seller.createTime}</p>
+                                    <p class="bg-info">店铺名称：${seller.shopName!}</p>
+                                    <p class="bg-success" style="margin-top: 15px;">创建时间：${seller.createTime!}</p>
                                     <p class="bg-warning" style="margin-top: 15px;">营业状态:
-                                    <#if seller.shopAble == 0>
+                                    <#if seller.shopAble! == 0>
                                     暂停营业
                                     <#else>
                                     正常营业
                                     </#if>
                                     </p>
+                                    <p style="margin-top: 15px;" class="bg-info">营业类型：${seller.shopTypeName!}</p>
                                    <div style="margin-top: 15px;"> 评价：<div id="test1"></div></div>
 
                                 </div>
                                 <div class="layui-col-md6 center-block">
-                                <img src="${seller.shopImg}" height="200px" width="200px" alt="">
+                                <img src="${seller.shopImg!}" height="200px" width="200px" alt="">
                                     头像
                                 </div>
                                 </div>
@@ -50,7 +51,7 @@
                         <div class="layui-card" >
                             <div class="layui-card-header">店铺公告</div>
                             <div class="layui-card-body"style="height: 250px">
-                            ${seller.shopDes}
+                            ${seller.shopDes!}
                             </div>
                         </div>
                     </div>

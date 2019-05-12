@@ -23,7 +23,7 @@
                 <div class="col-md-4 column">
                 </div>
                 <div class="col-md-4 column">
-                    <form role="form" method="post" action="/sell/seller/login" onsubmit="return check()">
+                    <form role="form" method="post" action="/sell/admin/login" onsubmit="return check()">
                         <div class="form-group">
                             <label for="exampleInputEmail1">账户</label><input type="text" name="username" class="form-control" id="username" />
                         </div>
@@ -34,8 +34,7 @@
                        <button type="submit" class="btn btn-default">登录</button>
 
                     </form>
-                    <a type="button" class="btn btn-default" href="/sell/seller/apply/index">商家申请入驻</a>
-                    <a href="/sell/admin/index">我是管理员</a>
+
                 </div>
                 <div class="col-md-4 column">
                 </div>

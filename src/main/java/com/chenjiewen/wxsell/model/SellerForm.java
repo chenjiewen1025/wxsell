@@ -28,7 +28,7 @@ public class SellerForm {
 
     private String personImg2;
 
-    private String shopDoor;
+    private String phone;
 
     private String shopAddress;
 
@@ -36,8 +36,17 @@ public class SellerForm {
 
     private Date createTime;
 
-
     private Date updateTime;
+
+    private String shopTypeName;
+
+    public String getShopTypeName() {
+        return shopTypeName;
+    }
+
+    public void setShopTypeName(String shopTypeName) {
+        this.shopTypeName = shopTypeName;
+    }
 
     public String getId() {
         return id;
@@ -127,12 +136,12 @@ public class SellerForm {
         this.personImg2 = personImg2;
     }
 
-    public String getShopDoor() {
-        return shopDoor;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setShopDoor(String shopDoor) {
-        this.shopDoor = shopDoor;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getShopAddress() {

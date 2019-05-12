@@ -5,6 +5,7 @@ import com.chenjiewen.wxsell.form.CategoryForm;
 import com.chenjiewen.wxsell.model.ProductCategory;
 import com.chenjiewen.wxsell.model.SellerInfo;
 import com.chenjiewen.wxsell.service.ProductCategoryService;
+import com.chenjiewen.wxsell.utils.KeyUtil;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.sf.json.JSONArray;
 import org.springframework.beans.BeanUtils;
@@ -50,7 +51,8 @@ public class SellerCategoryController {
 
     @PostMapping("/save")
     @ResponseBody
-    public String save(@Valid CategoryForm form, BindingResult bindingResult){
+    public String save(@Valid CategoryForm form, BindingResult bindingResult,
+                       HttpSession session){
 
 
         if (bindingResult.hasErrors())
@@ -73,8 +75,10 @@ public class SellerCategoryController {
         }
         else
         {
+            SellerInfo sellerInfo = (SellerInfo) session.getAttribute("seller");
             BeanUtils.copyProperties(form,productCategory);
-
+            productCategory.setCategoryId(KeyUtil.genUniqueKey());
+            productCategory.setSellerId(sellerInfo.getSellerId());
             productCategoryService.addProductCategory(productCategory);
         }
         }

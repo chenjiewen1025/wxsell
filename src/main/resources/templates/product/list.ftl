@@ -141,10 +141,9 @@
                 ,{field:'productPrice', width:80, title: '单价', sort: true}
                 ,{field:'productStock', width:80,title: '库存'}
                 ,{field:'productDescription', title: '描述'}
-                ,{field:'categoryType',  title: '类目', sort: true}
-                ,{field:'productStatusEnumMsg',  title: '状态', sort: true}
-                ,{field:'createTime',  title: '创建时间',sort: true}
-                ,{field:'updateTime',  title: '创建时间',sort: true}
+                ,{field:'categoryType', width:120, title: '类目', sort: true}
+                ,{field:'productStatusEnumMsg', width:120, title: '状态', sort: true}
+                ,{field:'updateTime',  title: '更新时间',sort: true}
                 ,{toolbar: '#barDemo', width:200,title: '操作'}
             ]]
             ,page: true
@@ -243,7 +242,13 @@
     {{#  } }}
 </script>
 <script type="text/html" id="Tpl">
+    {{#  if(d.productIcon != ""){ }}
+    <a href="{{d.productIcon}}" target="_blank">
     <img height="100" width="100" src="{{d.productIcon}}">
+    </a>
+    {{#  } else { }}
+    无图片
+    {{#  } }}
 </script>
 
 </body>

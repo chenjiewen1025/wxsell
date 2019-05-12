@@ -36,6 +36,16 @@ public class SellerInfo {
 
     private Date updateTime;
 
+    private String shopTypeName;
+
+    public String getShopTypeName() {
+        return shopTypeName;
+    }
+
+    public void setShopTypeName(String shopTypeName) {
+        this.shopTypeName = shopTypeName;
+    }
+
     public String getCreateTime() {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(createTime);
     }

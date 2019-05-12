@@ -25,6 +25,9 @@
             <a href="/sell/seller/shop/list"><i class="fa fa-fw fa-list-alt"></i> 店铺管理</a>
         </li>
         <li>
+            <a href="/sell/seller/password"><i class="fa fa-fw fa-list-alt"></i> 修改密码</a>
+        </li>
+        <li>
             <a href="/sell/seller/logout"><i class="fa fa-fw fa-list-alt"></i> 登出</a>
         </li>
     </ul>

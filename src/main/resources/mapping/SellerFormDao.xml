@@ -5,19 +5,31 @@
 <mapper namespace="com.chenjiewen.wxsell.dao.SellerFormDao">
 
     <select id="selectAll" resultType="com.chenjiewen.wxsell.model.SellerForm">
-        select * from seller_form where del_flag = 0 order by create_time desc
+       select form.*,category.name as "shopTypeName"
+from seller_form form
+join seller_category category on category.VALUE = form.shop_type
+order by form.del_flag, form.create_time desc
     </select>
+    <select id="selectById" resultType="com.chenjiewen.wxsell.model.SellerForm">
+       select * from seller_form where id = #{id}
+    </select>
+
+    <update id="updateDelFlagById">
+        update seller_form
+        set del_flag = #{delFlag}
+        where id = #{id}
+    </update>
 
     <insert id="add">
         insert into seller_form
         (id,shop_name,shop_type,username,
         password,shop_img1,shop_img2,person_name,person_id,
-        person_img1,person_img2,shop_address)
+        person_img1,person_img2,shop_address,phone)
         value
         (
         #{id},#{shopName},#{shopType},#{username},
         #{password},#{shopImg1},#{shopImg2},#{personName},#{personId},
-        #{personImg1},#{personImg2},#{shopAddress}
+        #{personImg1},#{personImg2},#{shopAddress},#{phone}
         )
     </insert>
 

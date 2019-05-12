@@ -58,9 +58,17 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <div class="layui-inline">
                 <label class="layui-form-label">店铺地址</label>
-                <div class="layui-input-block">
+                    <div class="layui-input-inline">
                     <input type="text" name="shopAddress" lay-verify="required" autocomplete="off" placeholder="请输入" class="layui-input">
+                </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">手机电话</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="phone" lay-verify="required" autocomplete="off" placeholder="请输入" class="layui-input">
+                    </div>
                 </div>
             </div>
             <div class="layui-form-item">

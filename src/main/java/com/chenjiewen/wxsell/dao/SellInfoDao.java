@@ -7,6 +7,7 @@ public interface SellInfoDao {
 
     SellerInfo selectById(@Param("sellerId") String sellerId);
     SellerInfo selectByUsername(@Param("username") String username);
-
+    void addSeller(SellerInfo sellerInfo);
     void updateBase(SellerInfo sellerInfo);
+    void updatePassword(SellerInfo sellerInfo);
 }

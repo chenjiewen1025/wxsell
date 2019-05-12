@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 
 public interface SellerService {
 
-
+    void addSeller(SellerInfo sellerInfo);
     SellerInfo selectById(String sellerId);
 
     SellerInfo selectByUsername(String username);
-
+    void updatePassword(SellerInfo sellerInfo);
     void updateBase(SellerInfo sellerInfo);
 }

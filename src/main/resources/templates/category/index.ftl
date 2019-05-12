@@ -2,10 +2,7 @@
 <#include "../common/header.ftl">
 
 <body>
-<div id="wrapper" class="toggled">
 
-<#--主要内容content-->
-    <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-md-12 column">
@@ -15,17 +12,15 @@
                             <label>名字</label>
                             <input name="categoryName" style="width: 300px" type="text" class="form-control" value="${(category.categoryName)!''}"/>
                         </div>
-                        <div class="form-group">
-                            <label>type</label>
-                            <input name="categoryType"style="width: 300px" type="number" class="form-control" value="${(category.categoryType)!''}"/>
-                        </div>
-                        <input hidden type="text" name="categoryId" value="${(category.categoryId)!''}">
+                        <#--<div class="form-group">-->
+                            <#--<label>type</label>-->
+                            <#--<input name="categoryType"style="width: 300px" type="number" class="form-control" value="${(category.categoryType)!''}"/>-->
+                        <#--</div>-->
+                        <input hidden type="text" name="categoryId" value="${(category.categoryId)!}">
                         <button type="button" onclick="dosumit()"  class="btn btn-default">提交</button>
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
 
 </div>
 <script>
