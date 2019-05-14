@@ -11,4 +11,7 @@ public interface SellerFormService {
     SellerForm selectById( String id);
     void updateDelFlagById(String id,Integer delFlag);
     void success(String id);
+     String sendSuccessMess(String phone);
+     String sendFailMess(String phone);
+     String sendCodeMess(String code,String phone);
 }

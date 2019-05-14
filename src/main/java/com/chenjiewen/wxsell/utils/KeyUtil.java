@@ -9,8 +9,6 @@ public class KeyUtil {
     {
         Random random = new Random();
 
-
-
         Integer number = random.nextInt(9000000)+1000000;
 
         return System.currentTimeMillis()+String.valueOf(number);

@@ -1,5 +1,7 @@
 package com.chenjiewen.wxsell.service.impl;
 
+import com.chenjiewen.wxsell.config.MessageAccountConfig;
+import com.chenjiewen.wxsell.config.WechatAccountConfig;
 import com.chenjiewen.wxsell.constant.ApplyConstant;
 import com.chenjiewen.wxsell.dao.SellerFormDao;
 import com.chenjiewen.wxsell.model.SellerForm;
@@ -7,6 +9,8 @@ import com.chenjiewen.wxsell.model.SellerInfo;
 import com.chenjiewen.wxsell.service.SellerFormService;
 import com.chenjiewen.wxsell.service.SellerService;
 import com.chenjiewen.wxsell.utils.KeyUtil;
+import com.chenjiewen.wxsell.utils.restDemo.client.AbsRestClient;
+import com.chenjiewen.wxsell.utils.restDemo.client.JsonReqClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +25,10 @@ public class SellerFormServiceImpl implements SellerFormService {
 
     @Autowired
     private SellerService sellerService;
+
+
+    @Autowired
+    private MessageAccountConfig messageAccountConfig;
 
     @Override
     public List<SellerForm> selectAll() {
@@ -42,7 +50,9 @@ public class SellerFormServiceImpl implements SellerFormService {
         dao.updateDelFlagById(id,delFlag);
     }
 
-
+    static AbsRestClient InstantiationRestAPI() {
+        return new JsonReqClient();
+    }
     @Transactional
     public void success(String id) {
         dao.updateDelFlagById(id, ApplyConstant.success);
@@ -55,4 +65,34 @@ public class SellerFormServiceImpl implements SellerFormService {
         sellerInfo.setPassword(temp.getPassword());
         sellerService.addSeller(sellerInfo);
     }
+
+    public String sendSuccessMess(String phone){
+
+        String result=InstantiationRestAPI().sendSms(messageAccountConfig.getAccountSid(),
+                messageAccountConfig.getAuthToken(), messageAccountConfig.getAppID(),
+                messageAccountConfig.getSuccessTp(), "",
+                phone, "");
+        return result;
+    }
+
+    public String sendFailMess(String phone){
+
+        String result=InstantiationRestAPI().sendSms(messageAccountConfig.getAccountSid(),
+                messageAccountConfig.getAuthToken(), messageAccountConfig.getAppID(),
+                messageAccountConfig.getFailTp(), "",
+                phone, "");
+        return result;
+    }
+
+    @Override
+    public String sendCodeMess(String code,String phone) {
+
+        String result=InstantiationRestAPI().sendSms(messageAccountConfig.getAccountSid(),
+                messageAccountConfig.getAuthToken(), messageAccountConfig.getAppID(),
+                messageAccountConfig.getCode(), code+",10",
+                phone, "");
+        return result;
+    }
+
+
 }

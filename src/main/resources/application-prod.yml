@@ -47,3 +47,12 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: count=countSql
+
+messages:
+  AppID: 73191c66cd9a4d95a92ae66456331872
+  AccountSid: 82b123cdf4450c6aa77b6cbe6fe3e1c2
+  AuthToken: a04b1a493f9c8a7816d67deb702f5095
+  RestURL: https://open.ucpaas.com/ol/sms/{function}
+  SuccessTp: 465909
+  FailTp: 465914
+  Code: 465913

@@ -11,11 +11,23 @@
 </style>
     <#--主要内容content-->
     <div id="page-content-wrapper">
-        <div class="container-fluid">
+        <div class="container-fluid layui-form">
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                 <legend>店铺基本信息</legend>
             </fieldset>
             <button class="layui-btn layui-btn-normal" onclick="edit()">修改</button>
+            <div class="layui-form-item" pane="">
+                <label class="layui-form-label" style="width: 90px">是否营业</label>
+                <div class="layui-input-block">
+                    <input type="checkbox"
+                    <#if seller.shopAble == 1>
+                    checked=""
+                    </#if>
+                           name="open"
+                           lay-text="YES|ON"  lay-skin="switch" lay-filter="switchTest" title="开关">
+                </div>
+
+            </div>
             <div style="padding: 20px; background-color: #F2F2F2;">
                 <div class="layui-row layui-col-space15">
                     <div class="layui-col-md6">
@@ -79,10 +91,10 @@
         var layer = layui.layer;
 
     });
-    layui.use(['rate'], function(){
+    layui.use(['rate','form'], function(){
         var rate = layui.rate;
         //基础效果
-
+        var form = layui.form;
         //显示文字
         rate.render({
             elem: '#test1'
@@ -90,7 +102,49 @@
             ,text: true //开启文本
             ,readonly: true
         });
+
+        //表单初始赋值
+        form.val('example', {
+            "switchTest": false //开关状态
+
+        })
+        //监听指定开关
+        form.on('switch(switchTest)', function(data){
+            if (this.checked)
+            {
+                able(1);
+            }
+            else {
+                able(0);
+            }
+
+
+        });
     });
+
+    function able(type) {
+        $.ajax({
+            type:"get",
+            url: '/sell/seller/shop/able?type='+type,
+            success:function (result) {
+                if (result=='1')
+                {
+                    layer.msg("成功", function(){
+                        window.parent.location.reload();//刷新父页面
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭
+
+                    });
+                }
+                else {
+                    layer.msg("失败");
+                }
+            },
+            error:function () {
+                layer.msg("异常");
+            }
+        });
+    }
 
     function edit() {
         layer.open({

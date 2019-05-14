@@ -30,12 +30,21 @@ public class SellOrderController {
     private OrderService orderService;
 
     @RequestMapping("/list")
-    public  ModelAndView list(HttpSession session){
+    public  ModelAndView list(HttpSession session,
+                              @RequestParam(value = "phone",defaultValue = "") String phone,
+                             @RequestParam(value = "orderstatus",defaultValue = "3") Integer status){
         SellerInfo seller = (SellerInfo) session.getAttribute("seller");
-        List<OrderMaster> temp = orderService.selectAll(seller.getSellerId());
+
+        OrderMaster orderMaster = new OrderMaster();
+        orderMaster.setSellerId(seller.getSellerId());
+        orderMaster.setBuyerPhone(phone);
+        orderMaster.setOrderStatus(status);
+        List<OrderMaster> temp = orderService.selectAll(orderMaster);
         ModelAndView modelAndView = new ModelAndView("/order/list");
         String orderMasterList = JSONArray.fromObject(temp).toString();
         modelAndView.addObject("orderMasterList",orderMasterList);
+        modelAndView.addObject("phone",phone);
+        modelAndView.addObject("orderstatus",status);
         return modelAndView;
     }
 
@@ -78,7 +87,28 @@ public class SellOrderController {
         modelAndView.setViewName("order/detail");
         return  modelAndView;
     }
-
+    @GetMapping("/print")
+    public ModelAndView print(@RequestParam(value = "able",defaultValue = "1") String able,HttpSession session,@RequestParam("orderId") String orderId){
+        ModelAndView modelAndView = new ModelAndView();
+        OrderMaster orderMaster = new OrderMaster();
+        SellerInfo sellerInfo = (SellerInfo) session.getAttribute("seller");
+        sellerInfo.setPassword(null);
+        try {
+            orderMaster = orderService.selectByOrderId(orderId);
+        }
+        catch (SellException e)
+        {
+            modelAndView.setViewName("common/error");
+            modelAndView.addObject("msg", ResultEnum.ORDERDETAIL_NOT_EXIST.getMessage());
+            modelAndView.addObject("url","/sell/seller/order/list");
+            return modelAndView;
+        }
+        modelAndView.addObject("able",able);
+        modelAndView.addObject("orderDTO",orderMaster);
+        modelAndView.addObject("seller",sellerInfo);
+        modelAndView.setViewName("order/print");
+        return  modelAndView;
+    }
     @GetMapping("/finish")
     @ResponseBody
     public String finished(@RequestParam("orderId") String orderId){

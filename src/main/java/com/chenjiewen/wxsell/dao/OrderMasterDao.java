@@ -9,6 +9,6 @@ public interface OrderMasterDao {
     List<OrderMaster> selectByBuyerOpenid(@Param("buyerOpenid") String buyerOpenid);
     OrderMaster selectByOrderId(@Param("orderId") String orderId);
     void addOrderMaster(OrderMaster orderMaster);
-    List<OrderMaster> selectAll(@Param("sellerId") String sellerId);
+    List<OrderMaster> selectAll(OrderMaster orderMaster);
     void updateMaster(OrderMaster orderMaster);
 }

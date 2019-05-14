@@ -27,6 +27,11 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
+    public void updateShopAble(SellerInfo sellerInfo) {
+        sellInfoDao.updateShopAble(sellerInfo);
+    }
+
+    @Override
     public SellerInfo selectByUsername(String username) {
         return sellInfoDao.selectByUsername(username);
     }

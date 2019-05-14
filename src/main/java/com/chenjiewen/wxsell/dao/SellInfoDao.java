@@ -10,4 +10,5 @@ public interface SellInfoDao {
     void addSeller(SellerInfo sellerInfo);
     void updateBase(SellerInfo sellerInfo);
     void updatePassword(SellerInfo sellerInfo);
+    void updateShopAble(SellerInfo sellerInfo);
 }

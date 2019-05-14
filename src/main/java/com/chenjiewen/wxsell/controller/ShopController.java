@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -36,6 +37,22 @@ public class ShopController {
         seller.setPassword(null);
         model.addAttribute("seller",seller);
         return "shop/form";
+    }
+
+    @RequestMapping("/able")
+    @ResponseBody
+    public String able(HttpSession session,@RequestParam("type") Integer type){
+        SellerInfo seller = (SellerInfo) session.getAttribute("seller");
+        try {
+            seller.setShopAble(type);
+            sellerService.updateShopAble(seller);
+            session.setAttribute("seller",seller);
+            return "1";
+        }catch (Exception e)
+        {
+            return "0";
+        }
+
     }
 
     @RequestMapping("/save")

@@ -46,6 +46,7 @@
         //监听行工具事件
         table.on('tool(content)', function(obj){
             var id = obj.data.id;
+            var phone = obj.data.phone;
               console.log(id);
 
             if(obj.event === 'detail'){
@@ -60,25 +61,52 @@
             } else   if(obj.event === 'success'){
 
                 $.ajax({
-                    url:'/sell/admin/success?id='+id,
+                    url:'/sell/admin/success?id='+id+'&phone='+phone,
                     success:function (result) {
-                        layer.msg(result, function(){
+                        var msg = "";
+                        if (result=='0')
+                        {
+                            layer.msg("出错！");
+                            return;
+                        }
+                        var dd = JSON.parse(result);
+                        if (dd.code  == '000000')
+                        {
+                            msg = "审核通过~信息发送成功！"
+                        }
+                        else {
+                            msg = "审核通过~"+dd.msg;
+                        }
+                        layer.msg(msg, function(){
                             window.parent.location.reload();//刷新父页面
                             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                             parent.layer.close(index); //再执行关闭
 
                         });
-
-                    }
+               }
 
                 });
 
             }
             else   if(obj.event === 'fail'){
                 $.ajax({
-                    url:'/sell/admin/fail?id='+id,
+                    url:'/sell/admin/fail?id='+id+'&phone='+phone,
                     success:function (result) {
-                        layer.msg(result, function(){
+                        var msg = "";
+                        if (result=='0')
+                        {
+                            layer.msg("出错！");
+                            return;
+                        }
+                        var dd = JSON.parse(result);
+                        if (dd.code  == '000000')
+                        {
+                            msg = "审核不通过~信息发送成功！"
+                        }
+                        else {
+                            msg = "审核不通过~"+dd.msg;
+                        }
+                        layer.msg(msg, function(){
                             window.parent.location.reload();//刷新父页面
                             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                             parent.layer.close(index); //再执行关闭

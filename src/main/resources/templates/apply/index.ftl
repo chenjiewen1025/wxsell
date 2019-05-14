@@ -58,18 +58,13 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-inline">
+
                 <label class="layui-form-label">店铺地址</label>
-                    <div class="layui-input-inline">
+                    <div class="layui-input-block" style="width: 48%;">
                     <input type="text" name="shopAddress" lay-verify="required" autocomplete="off" placeholder="请输入" class="layui-input">
                 </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">手机电话</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="phone" lay-verify="required" autocomplete="off" placeholder="请输入" class="layui-input">
-                    </div>
-                </div>
+
+
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
@@ -88,6 +83,25 @@
 
                 </div>
             </div>
+
+            <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">手机电话</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="phone" name="phone" lay-verify="required" autocomplete="off" placeholder="请输入" class="layui-input">
+                </div>
+            </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">验证码</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="code" lay-verify="required" autocomplete="off" placeholder="请输入" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button type="button" id="getCode" onclick="Code(this)" class="layui-btn layui-btn-primary">获取验证码</button>
+                </div>
+            </div>
+
             <div class="layui-form-item">
                 <div class="layui-inline">
 
@@ -296,5 +310,71 @@
         });
 
     }
+    // 判断是否为手机号
+    function isPoneAvailable (pone) {
+        var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        console.log(pone)
+        if (!myreg.test(pone)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function Code(obj) {
+        if ($("#phone").val()=='')
+        {
+            return;
+        }
+        if (!isPoneAvailable($("#phone").val()))
+        {
+            layer.msg("手机号不合法！");
+            $("#phone").val("");
+            $("#phone").focus();
+            return;
+        }
+
+        $.ajax({
+            type:'get',
+            url: '/sell/seller/apply/getCode?phone='+ $("#phone").val(),
+            success: function (res) {
+            var  result = JSON.parse(res);
+            if (result.code == '000000')
+            {
+                time(obj);
+                layer.msg("发送成功，请于10分钟内输入。");
+            }
+            else {
+                layer.msg("短信发送失败~请稍后再试");
+            }
+            },
+            error : function() {
+                layer.msg("异常！");
+            }
+        });
+
+
+    }
+    //60秒之后获取验证码
+    var wait=60;
+    function time(obj) {
+        if (wait == 0) {
+            obj.removeAttribute("disabled");
+            obj.innerHTML="获取验证码";
+            wait = 60;
+        } else {
+            obj.setAttribute("disabled", true);
+            obj.innerHTML=wait+"秒后重新发送";
+            wait--;
+            setTimeout(function() {
+                        time(obj)
+                    },
+                    1000)
+        }
+    }
+
+
+
+
 </script>
 </html>

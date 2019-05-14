@@ -34,7 +34,7 @@ public class SysConfig {
 			is = getClass().getResourceAsStream(
 					"/WEB-INF/classes/config.properties");
 			if (is == null) {
-				is = getClass().getResourceAsStream("/config.properties");
+				is = getClass().getResourceAsStream("src/config.properties");
 			}
 			InputStreamReader reader = new InputStreamReader(is, "UTF-8");
 			props.load(reader);

@@ -112,9 +112,9 @@ public class OrderServiceImpl implements OrderService {
 
 
 
-    public List<OrderMaster> selectAll(String sellerId) {
+    public List<OrderMaster> selectAll(OrderMaster orderMaster) {
 
-        List<OrderMaster> pageInfo = orderMasterDao.selectAll(sellerId);
+        List<OrderMaster> pageInfo = orderMasterDao.selectAll(orderMaster);
         return pageInfo;
     }
 

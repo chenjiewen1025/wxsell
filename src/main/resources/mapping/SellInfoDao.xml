@@ -26,6 +26,14 @@ join seller_category category on category.VALUE = info.shop_type
         where seller_id = #{sellerId}
     </update>
 
+
+    <update id="updateShopAble">
+        update seller_info
+        set
+        shop_able = #{shopAble}
+        where seller_id = #{sellerId}
+    </update>
+
     <update id="updatePassword">
         update seller_info
         set

@@ -1,5 +1,7 @@
 package com.chenjiewen.wxsell.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.chenjiewen.wxsell.constant.ApplyConstant;
 import com.chenjiewen.wxsell.constant.CookieConstant;
 import com.chenjiewen.wxsell.constant.RedisConstant;
@@ -39,6 +41,7 @@ import java.util.concurrent.TimeUnit;
 @Controller
 @RequestMapping("/admin")
 public class AdminLoginController {
+
 
 
     @Autowired
@@ -117,10 +120,11 @@ public class AdminLoginController {
         return "admin/detail";
     }
 
+
+
     @RequestMapping("/success")
     @ResponseBody
-
-    public String success(@RequestParam("id") String id ){
+    public String success(@RequestParam("id") String id,@RequestParam("phone") String phone){
 
         try {
 
@@ -128,24 +132,30 @@ public class AdminLoginController {
 
         }catch (SellException e)
         {
-            return "出错！";
+            return "0";
         }
 
-        return "审核通过！";
+
+          String result =   sellerFormService.sendSuccessMess(phone);
+
+        return result;
     }
 
     @RequestMapping("/fail")
     @ResponseBody
-    public String fail(@RequestParam("id") String id ){
+    public String fail(@RequestParam("id") String id,@RequestParam("phone") String phone ){
 
         try {
             sellerFormService.updateDelFlagById(id,ApplyConstant.fail);
         }catch (SellException e)
         {
-            return "出错！";
+            return "0";
         }
 
-        return "审核不通过！";
+        String result = sellerFormService.sendFailMess(phone);
+
+
+        return result;
     }
 
 

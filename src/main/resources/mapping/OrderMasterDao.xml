@@ -37,7 +37,10 @@
         select * from order_master where order_id = #{orderId}
     </select>
     <select id="selectAll" resultMap="orderMasterMaps">
-        select  * from order_master where seller_id = #{sellerId} order by create_time desc
+        select  * from order_master where seller_id = #{sellerId}
+        <if test="buyerPhone != null and buyerPhone!=''"> and buyer_phone like  "%"#{buyerPhone}"%"</if>
+        <if test="orderStatus != null and orderStatus!=3"> and order_status = #{orderStatus}</if>
+        order by create_time desc
     </select>
     <insert id="addOrderMaster" >
         insert into order_master

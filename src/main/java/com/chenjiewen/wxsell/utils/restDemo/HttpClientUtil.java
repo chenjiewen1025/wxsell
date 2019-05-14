@@ -1,5 +1,6 @@
 package com.chenjiewen.wxsell.utils.restDemo;
 
+import com.chenjiewen.wxsell.config.MessageAccountConfig;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
@@ -7,15 +8,18 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class HttpClientUtil {
-	
-	public static boolean isTest=Boolean.parseBoolean(SysConfig.getInstance().getProperty("is_test"));
+
+
+
+	public static boolean isTest= true;
 
 	public static String postJson(String url, String body, String charset) {
 		
 		String result = null;
-		
+
 		if (isTest) {
 			if (null == charset) {
 				charset = "UTF-8";

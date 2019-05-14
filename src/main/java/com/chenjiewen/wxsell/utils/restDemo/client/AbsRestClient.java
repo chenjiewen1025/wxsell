@@ -6,10 +6,14 @@
 package com.chenjiewen.wxsell.utils.restDemo.client;
 
 
+import com.chenjiewen.wxsell.config.MessageAccountConfig;
 import com.chenjiewen.wxsell.utils.restDemo.SysConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbsRestClient {
-	public String server= SysConfig.getInstance().getProperty("rest_server");
+
+
+	public String server= "open.ucpaas.com";
 	
 	/**
 	 * 

@@ -12,7 +12,7 @@ public interface OrderService {
     OrderMaster selectByOrderId(String orderId);
 
     //查询订单列表
-    List<OrderMaster> selectAll(String sellerId);
+    List<OrderMaster> selectAll(OrderMaster orderMaster);
 
     List<OrderMaster> selectByBuyerOpenid(String buyerOpenid);
     //取消订单
