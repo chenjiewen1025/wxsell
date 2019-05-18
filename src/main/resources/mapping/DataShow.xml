@@ -3,7 +3,6 @@
 
 
 <mapper namespace="com.chenjiewen.wxsell.dao.DataShowDao">
-
  <select id="getStatisticsBase" resultType="com.chenjiewen.wxsell.VO.StatisticsBase">
 SELECT
 count(*) as "orderNum",sum(MASTER.order_amount) as "amount",
@@ -15,12 +14,11 @@ JOIN order_master master on detail.order_id = MASTER.order_id
 WHERE MASTER.order_status = 1
 and MASTER.create_time between #{star} and #{end}
 ) as "detailNum"
-
 FROM
 order_master MASTER
 WHERE MASTER.order_status = 1 and MASTER.seller_id = #{sellerId}
 and MASTER.create_time between #{star} and #{end}
- </select>
+</select>
 
     <select id="getTop" resultType="com.chenjiewen.wxsell.VO.ProductTop">
 SELECT
@@ -36,7 +34,7 @@ ORDER BY sum(detail.product_quantity) desc
     </select>
 
   <select id="getTopAmount" resultType="com.chenjiewen.wxsell.VO.AmountTop">
-      SELECT order_id as "id",order_amount as "amount"
+SELECT order_id as "id",order_amount as "amount"
 FROM
 order_master
 WHERE order_status = 1 and seller_id = #{sellerId}
@@ -48,7 +46,7 @@ LIMIT 1
 
 
     <select id="getDayData" resultType="com.chenjiewen.wxsell.VO.DayData">
-        SELECT  sum((case when HOUR(create_time) BETWEEN 0 and 6 then 1 else 0 end)) as "oneToSix",
+SELECT  sum((case when HOUR(create_time) BETWEEN 0 and 6 then 1 else 0 end)) as "oneToSix",
 sum((case when HOUR(create_time) BETWEEN 7 and 10 then 1 else 0 end)) as "sevenToTen",
 sum((case when HOUR(create_time) BETWEEN 11 and 14 then 1 else 0 end)) as "elevenToFourteen",
 sum((case when HOUR(create_time) BETWEEN 15 and 18 then 1 else 0 end)) as "fifteenToEighteen",
@@ -63,7 +61,7 @@ and create_time between #{star} and #{end}
     </select>
 
     <select id="getSevenDay" resultType="com.chenjiewen.wxsell.VO.SevenDay">
-        SELECT
+SELECT
 sum((case when create_time BETWEEN date_sub(now(), INTERVAL   1   day) and now() then 1 else 0 end)) as "one"
 ,sum((case when create_time BETWEEN date_sub(now(), INTERVAL   2   day) and date_sub(now(), INTERVAL   1   day) then 1 else 0 end)) as "two"
 ,sum((case when create_time BETWEEN date_sub(now(), INTERVAL   3   day) and date_sub(now(), INTERVAL   2   day) then 1 else 0 end)) as "three"

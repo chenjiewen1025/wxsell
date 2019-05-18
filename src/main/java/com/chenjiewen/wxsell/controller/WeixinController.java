@@ -20,10 +20,7 @@ public class WeixinController {
     public void auth(@RequestParam("code") String code) throws MalformedURLException {
       log.info("进入auth");
       log.info("code"+code);
-
-
       String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxef9ffe8df044941e&secret=8608baea6b73936076e3dd61684fca97&code="+code+"&grant_type=authorization_code";
-
         RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.getForObject(url,String.class);
         log.info("re:"+response);

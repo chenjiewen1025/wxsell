@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.chenjiewen.wxsell.dao.CommentsDao">
+
+   <insert id="add">
+       insert into comments(id,order_id,comment,star,order_name,order_img)
+       value (#{id},#{orderId},#{comment},#{star},#{orderName},#{orderImg})
+   </insert>
+    <select id="getBySellerId" resultType="com.chenjiewen.wxsell.model.Comments">
+        select com.*
+        from
+        comments com
+        join order_master master on master.order_id = com.order_id
+        where master.seller_id = #{sellerId}
+        order  by com.create_time desc
+    </select>
+
+    <update id="updateCommentStatus">
+        update order_master
+        set order_comment = 1
+        where order_id = #{orderId}
+    </update>
+
+    <update id="updateStar">
+         update seller_info
+        set shop_star  =  (
+         select avg(star)
+        from
+        comments com
+        join order_master master on master.order_id = com.order_id
+        where master.seller_id = (SELECT seller_id
+				from
+        comments com
+        join order_master master on master.order_id = com.order_id
+        where master.order_id = #{orderId}
+				)
+        ) where seller_id = (SELECT seller_id
+				from
+        comments com
+        join order_master master on master.order_id = com.order_id
+        where master.order_id = #{orderId}
+				)
+    </update>
+</mapper>

@@ -11,4 +11,5 @@ public interface SellerCategoryDao {
     List<SellerCategory> selectAll();
     void updateById(@Param("id") String id,@Param("name") String name);
     void add(SellerCategory sellerCategory);
+    SellerCategory selectByValue(@Param("value") String value);
 }

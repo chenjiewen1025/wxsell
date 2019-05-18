@@ -2,7 +2,9 @@ package com.chenjiewen.wxsell.controller;
 
 import com.chenjiewen.wxsell.exception.SellException;
 import com.chenjiewen.wxsell.form.ProductForm;
+import com.chenjiewen.wxsell.model.Comments;
 import com.chenjiewen.wxsell.model.SellerInfo;
+import com.chenjiewen.wxsell.service.CommentsService;
 import com.chenjiewen.wxsell.service.SellerService;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/seller/shop")
@@ -22,12 +25,19 @@ public class ShopController {
     @Autowired
     private SellerService sellerService;
 
+
+    @Autowired
+    private CommentsService commentsService;
+
     @RequestMapping("/list")
     public String list(Model model, HttpSession session){
 
         SellerInfo seller = (SellerInfo) session.getAttribute("seller");
         seller.setPassword(null);
         model.addAttribute("seller",seller);
+        List<Comments> temp = commentsService.getBySellerId(seller.getSellerId());
+        String commentsList = JSONArray.fromObject(temp).toString();
+        model.addAttribute("commentsList",commentsList);
         return "shop/list";
     }
 

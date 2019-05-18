@@ -45,18 +45,9 @@ public class SellerProductController {
 
 
         List<ProductInfo> temp = new ArrayList<>();
-        if ("0".equals(type))
-        {
-            temp = productInfoService.selectUpAll();
-        }
-        else if ("1".equals(type))
-        {
-            temp = productInfoService.selectDownAll();
-        }
-        else
-        {
+
             temp = productInfoService.selectAll(selelr.getSellerId());
-        }
+
 
         ModelAndView modelAndView = new ModelAndView("/product/list");
         String productInfoList = JSONArray.fromObject(temp).toString();

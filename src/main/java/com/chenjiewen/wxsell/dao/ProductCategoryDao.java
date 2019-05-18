@@ -11,9 +11,10 @@ public interface ProductCategoryDao {
     //查询全部
     List<ProductCategory> selectAllProductCategory(@Param("sellerId") String sellerId);
     //通过type查
-    List<ProductCategory> selectByCategoryTypeIn(@Param("categoryType") List<Integer> categoryType);
+    List<ProductCategory> selectByCategoryTypeIn(@Param("sellerId") String sellerId,
+            @Param("categoryType") List<Integer> categoryType);
     //通过id查
-    ProductCategory selectByCategoryId(@Param("categoryId") Integer id);
+    ProductCategory selectByCategoryId(@Param("categoryId") String id);
     //更新
     void updateProductCategory(ProductCategory productCategory);
     //通过id删除

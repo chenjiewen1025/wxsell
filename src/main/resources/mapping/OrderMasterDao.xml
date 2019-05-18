@@ -16,6 +16,7 @@
         <result column="pay_status" property="payStatus"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
+        <result column="order_comment" property="orderComment"/>
         <collection property="orderDetailList" ofType="com.chenjiewen.wxsell.model.OrderDetail"
                     select="getOrderDetails" column="order_id">
         </collection>
@@ -65,4 +66,20 @@
         where order_id=#{orderId}
 
     </update>
+
+    <select id="getByOpenId" resultType="com.chenjiewen.wxsell.VO.BuyerOrderVo">
+        SELECT max(info.shop_img) as "img",max(info.shop_name) as "name",
+max(MASTER.order_status) as "status",max(MASTER.order_amount) as "amount",max(MASTER.create_time) as "time",
+max(MASTER.order_id) as orderId,sum(detail.product_quantity) as "num",max(MASTER.order_comment) as "orderComment"
+FROM
+order_master MASTER
+JOIN seller_info info on info.seller_id = MASTER.seller_id
+join order_detail detail on detail.order_id = MASTER.order_id
+
+WHERE MASTER.buyer_openId = #{openId}
+GROUP BY MASTER.order_id
+order by MASTER.create_time desc
+    </select>
+
+
 </mapper>

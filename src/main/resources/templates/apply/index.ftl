@@ -71,14 +71,14 @@
 
                     <label class="layui-form-label">申请人姓名</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="personName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input readonly = “readonly” type="text" id="personName" name="personName" lay-verify="required" placeholder="上传身份证自动填写" autocomplete="off" class="layui-input">
                     </div>
 
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">身份证号</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="personId" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input readonly = “readonly” type="text" name="personId" id="personId" lay-verify="required" placeholder="上传身份证自动填写" autocomplete="off" class="layui-input">
                     </div>
 
                 </div>
@@ -224,13 +224,26 @@
 //拖拽上传
         upload.render({
             elem: '#personImg1_1'
-            ,url: '/sell/seller/upload/addPhoto'
+            ,url: '/sell/seller/upload/addIdCard'
             ,done: function(res){
                 if (res[0].code == 0)
                 {
-                    console.log(res[0].filePath);
-                    $("#personImgIn1").val(res[0].filePath);
-                    $("#personImg1").attr("src",res[0].filePath);
+                    var idc =   $.parseJSON(res[0].idmes);
+                    if (idc=='1' || idc.words_result_num!='6')
+                    {
+                        layer.msg("无法识别，请重传！");
+                        return
+                    }
+                    else {
+                        console .log(idc.words_result_num);
+                        console .log(idc.words_result.公民身份号码.words);
+                        $("#personId").val(idc.words_result.公民身份号码.words);
+                        $("#personName").val(idc.words_result.姓名.words);
+                        $("#personImgIn1").val(res[0].filePath);
+                        $("#personImg1").attr("src",res[0].filePath);
+                        layer.msg("检测成功")
+                    }
+
                 }
                 else {
                     layer.msg("上传出错")
@@ -243,9 +256,9 @@
             ,done: function(res){
                 if (res[0].code == 0)
                 {
-                    console.log(res[0].filePath);
                     $("#personImgIn2").val(res[0].filePath);
                     $("#personImg2").attr("src",res[0].filePath);
+                    layer.msg("上传成功")
                 }
                 else {
                     layer.msg("上传出错")
@@ -258,9 +271,10 @@
             ,done: function(res){
                 if (res[0].code == 0)
                 {
-                    console.log(res[0].filePath);
+                    console.log(res[0]);
                     $("#shopImgIn1").val(res[0].filePath);
                     $("#shopImg1").attr("src",res[0].filePath);
+                    layer.msg("上传成功")
                 }
                 else {
                     layer.msg("上传出错")
@@ -273,9 +287,10 @@
             ,done: function(res){
                 if (res[0].code == 0)
                 {
-                    console.log(res[0].filePath);
+                    console.log(res[0]);
                     $("#shopImgIn2").val(res[0].filePath);
                     $("#shopImg2").attr("src",res[0].filePath);
+                    layer.msg("上传成功")
                 }
                 else {
                     layer.msg("上传出错")

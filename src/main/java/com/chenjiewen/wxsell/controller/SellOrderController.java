@@ -45,6 +45,7 @@ public class SellOrderController {
         modelAndView.addObject("orderMasterList",orderMasterList);
         modelAndView.addObject("phone",phone);
         modelAndView.addObject("orderstatus",status);
+        modelAndView.addObject("seller",seller);
         return modelAndView;
     }
 

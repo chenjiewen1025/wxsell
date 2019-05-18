@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class CategoryForm {
 
-    private Integer categoryId;
+    private String categoryId;
 
     /** 类目名字. */
     @NotBlank

@@ -1,7 +1,9 @@
 package com.chenjiewen.wxsell.service;
 
+import com.chenjiewen.wxsell.VO.BuyerOrderVo;
 import com.chenjiewen.wxsell.model.OrderMaster;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,5 +23,7 @@ public interface OrderService {
     OrderMaster finish(OrderMaster orderMaster);
     //支付订单
     OrderMaster paid(OrderMaster orderMaster);
+
+    List<BuyerOrderVo> getByOpenId(String openId);
 
 }

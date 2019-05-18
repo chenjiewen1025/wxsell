@@ -1,7 +1,12 @@
 package com.chenjiewen.wxsell.service;
 
+import com.chenjiewen.wxsell.VO.ShopList;
+import com.chenjiewen.wxsell.model.SellerCategory;
 import com.chenjiewen.wxsell.model.SellerInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 public interface SellerService {
@@ -12,4 +17,7 @@ public interface SellerService {
     SellerInfo selectByUsername(String username);
     void updatePassword(SellerInfo sellerInfo);
     void updateBase(SellerInfo sellerInfo);
+    List<ShopList> getAll();
+    List<ShopList> getByCategory(String category);
+
 }

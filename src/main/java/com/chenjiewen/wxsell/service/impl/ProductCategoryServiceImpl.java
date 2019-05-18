@@ -20,8 +20,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     //通过type int集合查询
-    public List<ProductCategory> selectByCategoryTypeIn(List<Integer> categoryType) {
-        return productCategoryDao.selectByCategoryTypeIn(categoryType);
+    public List<ProductCategory> selectByCategoryTypeIn(String sellerId,List<Integer> categoryType) {
+        return productCategoryDao.selectByCategoryTypeIn(sellerId,categoryType);
     }
 
     //查询全部
@@ -30,7 +30,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
    //通过id查询
-    public ProductCategory selectByCategoryId(Integer id) {
+    public ProductCategory selectByCategoryId(String id) {
         return  productCategoryDao.selectByCategoryId(id);
     }
 

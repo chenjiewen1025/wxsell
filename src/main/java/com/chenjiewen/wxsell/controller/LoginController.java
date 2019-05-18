@@ -4,14 +4,17 @@ package com.chenjiewen.wxsell.controller;
 import com.chenjiewen.wxsell.constant.CookieConstant;
 import com.chenjiewen.wxsell.constant.RedisConstant;
 import com.chenjiewen.wxsell.enums.ResultEnum;
+import com.chenjiewen.wxsell.exception.SellerAuthorizeException;
 import com.chenjiewen.wxsell.model.SellerInfo;
 import com.chenjiewen.wxsell.service.SellerService;
 import com.chenjiewen.wxsell.utils.CookieUtil;
 import com.chenjiewen.wxsell.utils.MD5;
+import com.chenjiewen.wxsell.utils.orc.AuthService;
 import com.mysql.jdbc.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +45,7 @@ public class LoginController {
 
     @RequestMapping("/index")
     public ModelAndView index(){
+
         return new ModelAndView("index");
     }
 
@@ -51,6 +55,7 @@ public class LoginController {
     public ModelAndView login(@RequestParam("username") String username,
                               @RequestParam("password") String password,
                               HttpServletResponse response, HttpSession session){
+
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -114,4 +119,9 @@ public class LoginController {
         modelAndView.addObject("url","/sell/seller/index");
         return modelAndView;
     }
+
+
+
+
+
 }

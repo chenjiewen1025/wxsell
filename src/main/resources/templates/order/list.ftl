@@ -145,7 +145,7 @@
 
     var websocket = null;
     if('WebSocket' in window) {
-        websocket = new WebSocket('ws://127.0.0.1:8080/sell/webSocket');
+        websocket = new WebSocket('ws://127.0.0.1:8080/sell/webSocket/'+${seller.sellerId});
     }else {
         alert('该浏览器不支持websocket!');
     }

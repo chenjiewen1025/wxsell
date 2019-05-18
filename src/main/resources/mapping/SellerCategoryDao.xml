@@ -7,6 +7,9 @@
     <select id="selectAll" resultType="com.chenjiewen.wxsell.model.SellerCategory">
         select * from seller_category  order by create_time desc
     </select>
+    <select id="selectByValue" resultType="com.chenjiewen.wxsell.model.SellerCategory">
+        select * from seller_category  where value=#{value}
+    </select>
 
     <insert id="add">
         insert into seller_category

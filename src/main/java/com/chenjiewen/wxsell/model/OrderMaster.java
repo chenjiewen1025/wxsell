@@ -56,6 +56,16 @@ public class OrderMaster implements Serializable {
     /** 更新时间. */
     private Timestamp updateTime;
 
+    private Integer orderComment;
+
+    public Integer getOrderComment() {
+        return orderComment;
+    }
+
+    public void setOrderComment(Integer orderComment) {
+        this.orderComment = orderComment;
+    }
+
     private List<OrderDetail> orderDetailList;
 
     public String getSellerId() {

@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface ProductCategoryService {
     void addProductCategory(ProductCategory productCategory);
-    List<ProductCategory> selectByCategoryTypeIn(List<Integer> categoryType);
+    List<ProductCategory> selectByCategoryTypeIn(String sellerId,List<Integer> categoryType);
     List<ProductCategory> selectAllProductCategory(String sellerId);
-    ProductCategory selectByCategoryId(Integer id);
+    ProductCategory selectByCategoryId(String id);
     //更新
     void updateProductCategory(ProductCategory productCategory);
     //通过id删除

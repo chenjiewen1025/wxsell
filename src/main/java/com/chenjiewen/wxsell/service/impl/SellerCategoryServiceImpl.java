@@ -27,4 +27,9 @@ public class SellerCategoryServiceImpl implements SellerCategoryService {
     public void add(SellerCategory sellerCategory) {
         dao.add(sellerCategory);
     }
+
+    @Override
+    public SellerCategory selectByValue(String value) {
+        return dao.selectByValue(value);
+    }
 }

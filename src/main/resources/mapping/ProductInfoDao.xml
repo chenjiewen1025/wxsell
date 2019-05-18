@@ -4,7 +4,7 @@
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.chenjiewen.wxsell.dao.ProductInfoDao">
     <select id="selectByProductStatus" resultType="com.chenjiewen.wxsell.model.ProductInfo">
-        select * from product_info where product_status = #{productStatus}
+        select * from product_info where product_status = #{productStatus} and seller_id = #{sellerId}
     </select>
     <select id="selectByProductId" resultType="com.chenjiewen.wxsell.model.ProductInfo">
         select * from product_info where product_id = #{productId}

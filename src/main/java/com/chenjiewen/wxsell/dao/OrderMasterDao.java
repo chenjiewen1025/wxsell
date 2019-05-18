@@ -1,5 +1,6 @@
 package com.chenjiewen.wxsell.dao;
 
+import com.chenjiewen.wxsell.VO.BuyerOrderVo;
 import com.chenjiewen.wxsell.model.OrderMaster;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,4 +12,6 @@ public interface OrderMasterDao {
     void addOrderMaster(OrderMaster orderMaster);
     List<OrderMaster> selectAll(OrderMaster orderMaster);
     void updateMaster(OrderMaster orderMaster);
+
+    List<BuyerOrderVo> getByOpenId(@Param("openId") String openId);
 }

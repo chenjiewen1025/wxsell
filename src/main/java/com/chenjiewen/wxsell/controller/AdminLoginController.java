@@ -1,7 +1,7 @@
 package com.chenjiewen.wxsell.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.baidu.aip.ocr.AipOcr;
 import com.chenjiewen.wxsell.constant.ApplyConstant;
 import com.chenjiewen.wxsell.constant.CookieConstant;
 import com.chenjiewen.wxsell.constant.RedisConstant;
@@ -19,6 +19,7 @@ import com.chenjiewen.wxsell.utils.CookieUtil;
 import com.chenjiewen.wxsell.utils.KeyUtil;
 import com.chenjiewen.wxsell.utils.MD5;
 import net.sf.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;

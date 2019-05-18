@@ -38,10 +38,10 @@ public class SellerCategoryController {
     }
 
     @GetMapping("/index")
-    public ModelAndView index(@RequestParam(value = "categoryId",required = false) Integer categoryId){
+    public ModelAndView index(@RequestParam(value = "categoryId",required = false) String categoryId){
 
         ModelAndView modelAndView = new ModelAndView("category/index");
-        if (categoryId != null)
+        if (categoryId != null )
         {
             ProductCategory productCategory = productCategoryService.selectByCategoryId(categoryId);
             modelAndView.addObject("category",productCategory);

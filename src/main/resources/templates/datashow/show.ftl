@@ -233,7 +233,7 @@
         legend: {
             orient: 'vertical',
             x: 'left',
-            data:['0点~6点','7点~10点','11点到14点','15点到18点','19点到22点',"23点到24点"]
+            data:['0点~7点','7点~11点','11点到15点','15点到19点','19点到23点',"23点到24点"]
         },
         series: [
             {
@@ -261,11 +261,11 @@
                 },
                 data:[
                     <#if daydata??>
-                    {value:${daydata.oneToSix!0}, name:'0点~6点'},
-                    {value:${daydata.sevenToTen!0}, name:'7点~10点'},
-                    {value:${daydata.elevenToFourteen!0}, name:'11点到14点'},
-                    {value:${daydata.fifteenToEighteen!0}, name:'15点到18点'},
-                    {value:${daydata.nineteenToTwentytwo!0}, name:'19点到22点'},
+                    {value:${daydata.oneToSix!0}, name:'0点~7点'},
+                    {value:${daydata.sevenToTen!0}, name:'7点~11点'},
+                    {value:${daydata.elevenToFourteen!0}, name:'11点到15点'},
+                    {value:${daydata.fifteenToEighteen!0}, name:'15点到19点'},
+                    {value:${daydata.nineteenToTwentytwo!0}, name:'19点到23点'},
                     {value:${daydata.twentythreeToTwentyfour!0}, name:'23点到24点'}
                      </#if>
 

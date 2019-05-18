@@ -7,7 +7,9 @@
     <#--边栏sidebar-->
     <#include "../common/nav.ftl">
 <style>
-
+    .layui-table-cell{
+        height:auto !important;
+    }
 </style>
     <#--主要内容content-->
     <div id="page-content-wrapper">
@@ -71,10 +73,7 @@
                         <div class="layui-card">
                             <div class="layui-card-header">评价列表</div>
                             <div class="layui-card-body">
-                                <p>1</p>
-                                <p>2</p>
-                                <p>3</p>
-                                <p>4</p>
+                                <table class="layui-hide"  lay-filter="content" id="content"></table>
                             </div>
                         </div>
                     </div>
@@ -157,7 +156,70 @@
 
         });
     }
-</script>
 
+    var dataList = ${commentsList!};
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#content'
+            ,data:dataList
+            ,cols: [[
+                {field:'orderId', width:200, title: '订单id'}
+                ,{field:'comment', title: '评价'}
+                ,{field:'orderImg',  title: '图片',templet: '#Tpl'}
+                ,{field:'orderName', width:80, title: '用户', sort: true}
+                ,{field:'star', width:80,title: '评星'}
+
+                ,{field:'createTime',  title: '时间',sort: true}
+                ,{toolbar: '#barDemo', width:100,title: '操作'}
+            ]]
+            ,page: true
+        });
+
+        //监听行工具事件
+        table.on('tool(content)', function(obj){
+            var id = obj.data.orderId;
+            // console.log(id);
+
+            switch (obj.event) {
+                case 'detail':{
+                    top.layer.open({
+                        type: 2,
+                        area: ['80%', '80%'],
+                        title: '详情',
+                        maxmin: true, //开启最大化最小化按钮
+                        content: '/sell/seller/order/print?able=0&orderId='+id,
+
+
+                    });
+                    break;
+                }
+
+
+                default:break;
+
+
+
+            }
+
+        })
+
+
+    });
+</script>
+<script type="text/html" id="Tpl">
+    {{#  if(d.orderImg != ""){ }}
+    <a href="{{d.orderImg}}" target="_blank">
+        <img height="100" width="100" src="{{d.orderImg}}">
+    </a>
+    {{#  } else { }}
+    无图片
+    {{#  } }}
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="detail">详情</a>
+
+</script>
 </body>
 </html>

@@ -5,16 +5,24 @@ import com.chenjiewen.wxsell.VO.ProductVO;
 import com.chenjiewen.wxsell.VO.ResultVO;
 import com.chenjiewen.wxsell.dao.ProductInfoDao;
 import com.chenjiewen.wxsell.enums.ProductStatusEnum;
+import com.chenjiewen.wxsell.model.Comments;
 import com.chenjiewen.wxsell.model.ProductCategory;
 import com.chenjiewen.wxsell.model.ProductInfo;
+import com.chenjiewen.wxsell.model.SellerInfo;
+import com.chenjiewen.wxsell.service.CommentsService;
 import com.chenjiewen.wxsell.service.ProductCategoryService;
 import com.chenjiewen.wxsell.service.ProductInfoService;
+import com.chenjiewen.wxsell.service.SellerService;
 import com.chenjiewen.wxsell.utils.ResultVOUtil;
 import com.fasterxml.jackson.databind.util.BeanUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -22,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/buyer/product")
 public class BuyerProductController {
     @Resource
@@ -33,9 +41,15 @@ public class BuyerProductController {
     @Resource
     private ProductInfoDao productInfoDao;
 
+    @Autowired
+    private CommentsService commentsService;
+
+    @Autowired
+    private SellerService sellerService;
+
     @RequestMapping("/list")
-    @Cacheable(cacheNames = "product",key = "123")
-    public ResultVO list(){
+    public String list(@RequestParam("sellerId") String sellerId,
+                       Model model){
 
         /*
 
@@ -44,7 +58,8 @@ public class BuyerProductController {
      3.数据拼装
          */
         //1
-        List<ProductInfo> productInfoList = productInfoDao.selectByProductStatus(ProductStatusEnum.UP.getCode());
+        List<ProductInfo> productInfoList =
+                productInfoDao.selectByProductStatus(ProductStatusEnum.UP.getCode(),sellerId);
 
         //2
         List<Integer> categoryTypeList = new ArrayList<>();
@@ -53,7 +68,8 @@ public class BuyerProductController {
         {
             categoryTypeList.add(item.getCategoryType());
         }
-        List<ProductCategory> productCategoryList = productCategoryService.selectByCategoryTypeIn(categoryTypeList);
+        List<ProductCategory> productCategoryList =
+                productCategoryService.selectByCategoryTypeIn(sellerId,categoryTypeList);
 
         //3
         List<ProductVO> productVOList = new ArrayList<>();
@@ -77,6 +93,19 @@ public class BuyerProductController {
             productVOList.add(productVO);
         }
 
-        return ResultVOUtil.success(productVOList);
+        SellerInfo seller = sellerService.selectById(sellerId);
+        model.addAttribute("seller",seller);
+       model.addAttribute("productVOList",productVOList);
+        List<Comments> comments = commentsService.getBySellerId(sellerId);
+        model.addAttribute("comments",comments);
+        return "buyer/shopDetail";
     }
+
+
+
+    @RequestMapping("/test")
+    public String test(){
+        return "buyer/shopDetail";
+    }
+
 }

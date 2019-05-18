@@ -30,6 +30,8 @@ public class OrderForm {
      */
     @NotBlank(message = "openid必填")
     private String openid;
+    @NotBlank(message = "sellerId必填")
+    private String sellerId;
 
     /**
      * 购物车

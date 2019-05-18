@@ -1,5 +1,6 @@
 package com.chenjiewen.wxsell.service.impl;
 
+import com.chenjiewen.wxsell.VO.BuyerOrderVo;
 import com.chenjiewen.wxsell.dao.OrderDetailDao;
 import com.chenjiewen.wxsell.dao.OrderMasterDao;
 import com.chenjiewen.wxsell.dto.CarDTO;
@@ -95,7 +96,7 @@ public class OrderServiceImpl implements OrderService {
         productInfoService.decreaseStock(carDTOList);
 
         try {
-            webSocket.sendMessage("有新订单");
+            webSocket.sendtoUser("有新订单",orderMaster.getSellerId());
         }
         catch (Exception e)
         {
@@ -196,5 +197,10 @@ public class OrderServiceImpl implements OrderService {
         orderMasterDao.updateMaster(orderMaster);
         payService.create(orderMaster,"支付成功！请留意后续！");
         return orderMaster;
+    }
+
+    @Override
+    public List<BuyerOrderVo> getByOpenId(String openId) {
+        return orderMasterDao.getByOpenId(openId);
     }
 }

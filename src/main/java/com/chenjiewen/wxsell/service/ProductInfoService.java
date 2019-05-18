@@ -14,8 +14,6 @@ public interface ProductInfoService {
 
     List<ProductInfo> selectAll(String sellerId);
 
-    List<ProductInfo> selectUpAll();  //在架
-    List<ProductInfo> selectDownAll();
     void deleteById(String id);
     void addProductInfo(ProductInfo productInfo);
     //加库存

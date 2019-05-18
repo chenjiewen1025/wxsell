@@ -12,10 +12,13 @@
         SELECT * FROM product_category  where seller_id = #{sellerId}
     </select>
     <select id="selectByCategoryTypeIn" resultType="com.chenjiewen.wxsell.model.ProductCategory">
-        select * from product_category where category_type in
+        select * from product_category where seller_id = #{sellerId}
+        <if test="categoryType.size()>0" >
+        and  category_type in
         <foreach collection="categoryType" item="item" index="index" open="(" close=")" separator=",">
             #{item}
         </foreach>
+        </if>
     </select>
     <select id="selectByCategoryId" resultType="com.chenjiewen.wxsell.model.ProductCategory" >
         SELECT * FROM product_category where category_id = #{categoryId}

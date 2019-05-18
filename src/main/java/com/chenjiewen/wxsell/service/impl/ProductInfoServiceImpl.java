@@ -36,19 +36,6 @@ public class ProductInfoServiceImpl implements ProductInfoService {
         return productInfoDao.selectAll(sellerId) ;
     }
 
-    @Override
-
-    public List<ProductInfo> selectUpAll() {
-
-        return   productInfoDao.selectByProductStatus(ProductStatusEnum.UP.getCode());
-    }
-
-    @Override
-    public List<ProductInfo> selectDownAll() {
-
-
-        return  productInfoDao.selectByProductStatus(ProductStatusEnum.DOWN.getCode());
-    }
 
     @Override
     public void deleteById(String id) {

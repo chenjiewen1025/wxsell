@@ -7,6 +7,9 @@
     <select id="selectByOpenid" resultType="com.chenjiewen.wxsell.model.SellerInfo">
         select * from seller_info where seller_id = #{sellerId}
     </select>
+    <select id="selectById" resultType="com.chenjiewen.wxsell.model.SellerInfo">
+        select * from seller_info where seller_id = #{sellerId}
+    </select>
 
     <select id="selectByUsername" resultType="com.chenjiewen.wxsell.model.SellerInfo">
         select info.* ,category.name as "shopTypeName"
@@ -14,6 +17,22 @@ from
 seller_info info
 join seller_category category on category.VALUE = info.shop_type
  where username = #{username}
+    </select>
+
+    <select id="getAll" resultType="com.chenjiewen.wxsell.VO.ShopList">
+        select info.* ,category.name as "shopTypeName"
+        from
+        seller_info info
+        join seller_category category on category.VALUE = info.shop_type
+        order by info.shop_able desc
+    </select>
+    <select id="getByCategory" resultType="com.chenjiewen.wxsell.VO.ShopList">
+        select info.* ,category.name as "shopTypeName"
+        from
+        seller_info info
+        join seller_category category on category.VALUE = info.shop_type
+        where info.shop_type = #{category}
+        order by info.shop_able desc
     </select>
 
     <update id="updateBase">

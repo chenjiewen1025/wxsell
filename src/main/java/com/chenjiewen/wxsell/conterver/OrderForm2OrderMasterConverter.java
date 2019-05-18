@@ -25,7 +25,7 @@ public class OrderForm2OrderMasterConverter {
         orderMaster.setBuyerPhone(orderForm.getPhone());
         orderMaster.setBuyerAddress(orderForm.getAddress());
         orderMaster.setBuyerOpenid(orderForm.getOpenid());
-
+        orderMaster.setSellerId(orderForm.getSellerId());
         List<OrderDetail> orderDetailList = new ArrayList<>();
         try {
             orderDetailList = gson.fromJson(orderForm.getItems(),
