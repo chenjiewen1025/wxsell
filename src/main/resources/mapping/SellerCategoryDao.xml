@@ -13,15 +13,16 @@
 
     <insert id="add">
         insert into seller_category
-        (id,name)
+        (id,name,img)
         value
         (
-        #{id},#{name}
+        #{id},#{name},#{img}
         )
     </insert>
     <update id="updateById">
         update  seller_category
-       set name = #{name}
+       set name = #{name},
+       img = #{img}
        where id= #{id}
     </update>
 

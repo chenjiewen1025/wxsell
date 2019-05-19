@@ -13,7 +13,18 @@
                             <input name="name" type="text" class="form-control" value="${(name)!}"/>
                         </div>
                         <input type="hidden" name="id" value="${(id)!}">
+                        <div class="layui-inline">
 
+                            <label class="layui-form-label">图标</label>
+                            <div class="layui-input-inline">
+                                <input id="personImgIn1" type="hidden" name="img" lay-verify="required" class="layui-input">
+                                <div class="layui-upload-drag" id="personImg1_1">
+                                    <img height="120px" width="250px" src="" alt="" id="personImg1">
+                                    <p>点击上传，或将文件拖拽到此处</p>
+                                </div>
+                            </div>
+
+                        </div>
                     </form>
                     <button type="button" onclick="dosumit()" class="btn btn-default">提交</button>
                 </div>
@@ -25,9 +36,29 @@
 </body>
 
 <script>
-    layui.use('layer', function(){
+    layui.use(['upload','layer'], function(){
         var layer = layui.layer;
+        var $ = layui.jquery
+                ,upload = layui.upload;
 
+        upload.render({
+            elem: '#personImg1_1'
+            ,url: '/sell/seller/upload/addPhoto'
+            ,done: function(res){
+                if (res[0].code == 0)
+                {
+
+                        $("#personImgIn1").val(res[0].filePath);
+                        $("#personImg1").attr("src",res[0].filePath);
+                        layer.msg("检测成功")
+
+
+                }
+                else {
+                    layer.msg("上传出错")
+                }
+            }
+        });
     });
 
     function dosumit(){

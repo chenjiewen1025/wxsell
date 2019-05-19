@@ -94,7 +94,8 @@ public class AdminLoginController {
     @RequestMapping("/save")
     @ResponseBody
     public String save(@RequestParam(value = "id" ,required = false) String id,
-                       @RequestParam(value = "name",required = false) String name){
+                       @RequestParam(value = "name",required = false) String name,
+                       @RequestParam(value = "img",required = false) String img){
         try {
             if (id==null || "".equals(id))
             {
@@ -104,7 +105,11 @@ public class AdminLoginController {
                 sellerCategoryService.add(temp);
             }
             else {
-                sellerCategoryService.updateById(id,name);
+                SellerCategory query = new SellerCategory();
+                query.setId(id);
+                query.setName(name);
+                query.setImg(img);
+                sellerCategoryService.updateById(query);
             }
         }catch (Exception e)
         {

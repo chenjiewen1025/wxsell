@@ -26,8 +26,7 @@
         overflow: hidden;
     }
     .shop{
-        margin-top: 10px;
-        margin-left: 40px;
+
         height:80px;
         width: 80px;
         display: flex;
@@ -95,7 +94,77 @@
         text-align: center;
         padding-left: 10px;
     }
+    　* {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0
+    }
 
+    ul,
+    li {
+        list-style: none;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    a:hover {
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    a:link {
+        text-decoration: none;
+    }
+
+    img {
+        vertical-align: middle;
+    }
+
+    .btn-numbox {
+        overflow: hidden;
+        margin-top: 20px;
+    }
+
+    .btn-numbox li {
+        float: left;
+    }
+
+    .btn-numbox li .number,
+    .kucun {
+        display: inline-block;
+        font-size: 12px;
+        color: #808080;
+        vertical-align: sub;
+    }
+
+    .btn-numbox .count {
+        overflow: hidden;
+        margin: 0;
+    }
+
+    .btn-numbox .count .num-jian,
+    .input-num,
+    .num-jia {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        font-size: 18px;
+        color: #999;
+        cursor: pointer;
+        border: 1px solid #e6e6e6;
+    }
+    .btn-numbox .count .input-num {
+        width: 58px;
+        height: 26px;
+        color: #333;
+        border-left: 0;
+        border-right: 0;
+    }
 </style>
 <body>
 <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
@@ -158,11 +227,26 @@
                                      <#list item.productInfoVOList as item2>
                                     <div class="card" style="height: 120px">
                                         <div class="row" style="height: 100%;">
-                                            <div class="col-30"><img class="shop" src=" ${item2.productIcon}" alt=""></div>
-                                            <div class="col-70" style="margin-top: 10px;display: inline"><h3>${item2.productName}</h3>
+                                            <div class="col-30" style="    margin-top: 10px;
+    margin-left: 20px;
+    height: 80px;
+    width: 80px;"><img class="shop" src=" ${item2.productIcon}" alt=""></div>
+                                            <div class="col-70" style="margin-top: 10px;     position: absolute;display: inline"><h3>${item2.productName}</h3>
                                                 <h6 style="margin-top: 5px;display: inline" >${item2.productPrice}<p></h6>
                                                 <h6 style="margin-top: 5px;"> ${item2.productDescription}</h6>
-                                                <a style="left: 70px; display: inline;" href="#" class="button">加入</a>
+                                                <#--<a style="left: 70px; display: inline;" href="#" class="button">加入</a>-->
+                                                　　<ul class="btn-numbox" style="margin-top: -60px;  margin-left: 74px">
+                                                    <li>
+                                                        <ul class="count">
+                                                            <span onclick="jian(this)" class="num-jian">-</span>
+                                                            <input readonly type="text" class="input-num" value="0" />
+                                                            <span onclick="jia(this)" class="num-jia">+</span>
+                                                        </ul>
+                                                    </li>
+
+                                                    　　　  </ul>　　
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -220,7 +304,32 @@
             </div>
 
     </div>
+        <div id="car" style="    width: 100%;
+    bottom: 46px;
+    position: fixed;
+    background-color:antiquewhite; display: none "> 211212 </div>
 
+        <div style="width: 100%;
+    bottom: 0;
+    position: fixed;
+    background-color: antiquewhite;
+    height: 46px;">
+            <a href=""class="open-shopcart" onclick="showcar()"><span style="font-size: 39px" class="icon icon-cart"></span></a>
+            <span style="margin-left: 48px;
+    font-size: 20px;">共XX件   xx元</span>
+            <div style="position: fixed;
+    /* margin-right: 0px; */
+    width: 130px;margin-top: -43px;
+    right: 0;">
+
+                <#if seller.shopAble==1>
+                <a href="#" class="button button-big button-fill button-success">结算</a>
+                    <#else >
+                  <a href="#" style="background-color: #5f646e;" class="button button-big button-fill button-success">暂停营业</a>
+            </#if>
+
+            </div>
+        </div>
     </div>
     <div class="popup popup-about"style="background:rgba(0,0,0,.5);">
         <div class="content-block" style="color: aliceblue;
@@ -249,7 +358,7 @@
 
             if (getCookie("openId")==null)
             {
-                window.location.href="http://chenjiewen.natapp1.cc/sell/wechat/authorize?returnUrl=http://chenjiewen.natapp1.cc/sell/buyer/index";
+                // window.location.href="http://chenjiewen.natapp1.cc/sell/wechat/authorize?returnUrl=http://chenjiewen.natapp1.cc/sell/buyer/index";
 
             }
 
@@ -257,6 +366,20 @@
 
     });
 
+    var isshow = 0;
+    function showcar() {
+        if (isshow==0)
+        {
+            document.all["car"].style.display="block"; //显示
+            isshow = 1;
+        }
+        else {
+            document.all["car"].style.display="none"; //显示
+            isshow = 0;
+        }
+
+
+    }
     function setCookie(name,value)
     {
         var exp = new Date();
@@ -287,6 +410,36 @@ function catego(re) {
     $(document).on('click','.open-about', function () {
         $.popup('.popup-about');
     });
+
+
+</script>
+<script>
+
+    function jian(e) {
+        var num_jia = $(e).next().next();
+        var num_jian = $(e);
+        var input_num = $(e).next();
+
+        if(input_num.val() <= 0) {
+            input_num.val(0);
+        } else {
+
+            input_num.val(parseInt(input_num.val()) - 1) ;
+        }
+
+    }
+    function jia(e) {
+        var num_jia = $(e);
+        var num_jian = $(e).prev().prev();
+        var input_num = $(e).prev();
+        input_num.val(parseInt(input_num.val()) + 1);
+
+
+    }
+
+
+
+
 
 </script>
 </body>

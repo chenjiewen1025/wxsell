@@ -11,9 +11,19 @@ public class SellerCategory {
 
     private String name;
 
+    private String img;
+
     private Date createTime;
 
     private Date updateTime;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 
     public Integer getValue() {
         return value;

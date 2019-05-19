@@ -56,6 +56,18 @@ public class BuyerLoginController {
         return "buyer/index";
     }
 
+    @RequestMapping("indexBykey")
+    public String indexBykey(@RequestParam("key") String key,
+                                  Model model){
+
+        List<ShopList> shopLists =  sellerService.getByKey(key);
+        model.addAttribute("shopList",shopLists);
+        model.addAttribute("key",key);
+
+        return "buyer/index";
+    }
+
+
 
     @RequestMapping("order")
     public String order(@RequestParam("openId") String openId,

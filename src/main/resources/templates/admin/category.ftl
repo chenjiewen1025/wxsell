@@ -2,13 +2,16 @@
 
 <#include "../common/header.ftl">
 <body>
+<style>   .layui-table-cell{
+    height:auto !important;
+}</style>
 <div id="wrapper" class="toggled">
 
 <#include "../admin/nav.ftl">
     <#--主要内容content-->
     <div id="page-content-wrapper">
         <div class="container-fluid">
-            <button class="layui-btn" onclick="add()">新增</button>
+            <#--<button class="layui-btn" onclick="add()">新增</button>-->
             <table class="layui-hide"  lay-filter="content" id="content"></table>
 
         </div>
@@ -32,6 +35,7 @@
                 {type:'numbers',}
                 ,{field:'name', width:180,title: '名称'}
                 ,{field:'value', width:100, title: '映射值', sort: true}
+                ,{field:'img',  title: '图片',templet: '#Tpl'}
                 ,{field:'createTime',  title: '创建时间',sort: true}
                 ,{field:'updateTime',  title: '更新时间',sort: true}
                 ,{toolbar: '#barDemo', title: '操作'}
@@ -47,7 +51,7 @@
             if(obj.event === 'edit'){
                 top.layer.open({
                     type: 2,
-                    area: ['30%', '30%'],
+                    area: ['50%', '50%'],
                     title: '增加',
                     maxmin: true, //开启最大化最小化按钮
                     content: '/sell/admin/edit?id='+id+'&name='+name,
@@ -74,6 +78,14 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
 </script>
-
+<script type="text/html" id="Tpl">
+    {{#  if(d.img != ""){ }}
+    <a href="{{d.img}}" target="_blank">
+        <img height="100" width="100" src="{{d.img}}">
+    </a>
+    {{#  } else { }}
+    无图片
+    {{#  } }}
+</script>
 </body>
 </html>

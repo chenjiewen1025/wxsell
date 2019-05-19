@@ -56,7 +56,10 @@
         <header class="bar bar-nav">
             <#if type??>
                 <h1 class="title">${type}</h1>
-            <#else>
+            <#elseif key??>
+                  <h1 class="title">${key}</h1>
+            <#else >
+
                  <h1 class="title">eee外卖平台</h1>
             </#if>
         </header>
@@ -80,7 +83,7 @@
         <div class="bar bar-header-secondary">
 
             <div class="searchbar">
-                <a class="searchbar-cancel">确定</a>
+                <a class="searchbar-cancel" onclick="search1()">确定</a>
                 <div class="search-input">
                     <label class="icon icon-search" for="search"></label>
                     <input type="search"  id='search' placeholder='输入关键字...'/>
@@ -115,31 +118,31 @@
 
                                 <div class="col-20"style="height: 100%">
                                     <a onclick="catego('${categoryList[0].value!}')">
-                                    <img src="/sell/api/file/11.jpg" class="round_icon"  alt="">
+                                    <img src="${categoryList[0].img!}" class="round_icon"  alt="">
                                     <span style="font-size: 10px">${categoryList[0].name!}</span>
                                     </a>
                                 </div>
                                 <div class="col-20"style="height: 100%">
                                     <a onclick="catego('${categoryList[1].value!}')">
-                                        <img src="/sell/api/file/11.jpg" class="round_icon"  alt="">
+                                        <img src="${categoryList[1].img!}" class="round_icon"  alt="">
                                         <span style="font-size: 10px">${categoryList[1].name!}</span>
                                     </a>
                                 </div>
                                 <div class="col-20"style="height: 100%">
                                     <a onclick="catego('${categoryList[2].value!}')">
-                                        <img src="/sell/api/file/11.jpg" class="round_icon"  alt="">
+                                        <img src="${categoryList[2].img!}" class="round_icon"  alt="">
                                         <span style="font-size: 10px">${categoryList[2].name!}</span>
                                     </a>
                                 </div>
                                 <div class="col-20"style="height: 100%">
                                     <a onclick="catego('${categoryList[3].value!}')">
-                                        <img src="/sell/api/file/11.jpg" class="round_icon"  alt="">
+                                        <img src="${categoryList[3].img!}" class="round_icon"  alt="">
                                         <span style="font-size: 10px">${categoryList[3].name!}</span>
                                     </a>
                                 </div>
                                 <div class="col-20"style="height: 100%">
                                     <a onclick="catego('${categoryList[4].value!}')">
-                                        <img src="/sell/api/file/11.jpg" class="round_icon"  alt="">
+                                        <img src="${categoryList[4].img!}" class="round_icon"  alt="">
                                         <span style="font-size: 10px">${categoryList[4].name!}</span>
                                     </a>
                                 </div>
@@ -148,27 +151,27 @@
                             <div class="row" style="height: 50%">
                                 <div class="col-20"style="height: 100%">
                                     <a onclick="catego('${categoryList[5].value!}')">
-                                        <img src="/sell/api/file/11.jpg" class="round_icon"  alt="">
+                                        <img src="${categoryList[5].img!}" class="round_icon"  alt="">
                                         <span style="font-size: 10px">${categoryList[5].name!}</span>
                                     </a>
                                 </div>   <div class="col-20"style="height: 100%">
                                 <a onclick="catego('${categoryList[6].value!}')">
-                                    <img src="/sell/api/file/11.jpg" class="round_icon"  alt="">
+                                    <img src="${categoryList[6].img!}" class="round_icon"  alt="">
                                     <span style="font-size: 10px">${categoryList[6].name!}</span>
                                 </a>
                             </div>   <div class="col-20"style="height: 100%">
                                 <a onclick="catego('${categoryList[7].value!}')">
-                                    <img src="/sell/api/file/11.jpg" class="round_icon"  alt="">
+                                    <img src="${categoryList[7].img!}" class="round_icon"  alt="">
                                     <span style="font-size: 10px">${categoryList[7].name!}</span>
                                 </a>
                             </div>   <div class="col-20"style="height: 100%">
                                 <a onclick="catego('${categoryList[8].value!}')">
-                                    <img src="/sell/api/file/11.jpg" class="round_icon"  alt="">
+                                    <img src="${categoryList[8].img!}" class="round_icon"  alt="">
                                     <span style="font-size: 10px">${categoryList[8].name!}</span>
                                 </a>
                             </div>   <div class="col-20"style="height: 100%">
                                 <a onclick="catego('${categoryList[9].value!}')">
-                                    <img src="/sell/api/file/11.jpg" class="round_icon"  alt="">
+                                    <img src="${categoryList[9].img!}" class="round_icon"  alt="">
                                     <span style="font-size: 10px">${categoryList[9].name!}</span>
                                 </a>
                             </div>
@@ -283,6 +286,17 @@ function catego(re) {
         history.go(0);
          console.log("刷新");
     });
+function search1() {
+    var sea = $("#search").val();
+
+    if (sea==null||sea=='')
+    {
+        return;
+    }
+    else {
+        window.location.href="/sell/buyer/indexBykey?key="+sea;
+    }
+}
 
 </script>
 </body>

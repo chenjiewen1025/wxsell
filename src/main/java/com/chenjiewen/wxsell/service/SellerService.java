@@ -19,5 +19,6 @@ public interface SellerService {
     void updateBase(SellerInfo sellerInfo);
     List<ShopList> getAll();
     List<ShopList> getByCategory(String category);
+    List<ShopList> getByKey(String key);
 
 }

@@ -20,7 +20,7 @@ public class SellerInfo {
 
     private String shopDes;
 
-    private Integer shopStar;
+    private Double shopStar;
 
     private Integer shopType;
 
@@ -94,11 +94,11 @@ public class SellerInfo {
         this.shopDes = shopDes;
     }
 
-    public Integer getShopStar() {
+    public Double getShopStar() {
         return shopStar;
     }
 
-    public void setShopStar(Integer shopStar) {
+    public void setShopStar(Double shopStar) {
         this.shopStar = shopStar;
     }
 

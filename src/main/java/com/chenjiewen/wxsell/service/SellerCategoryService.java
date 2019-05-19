@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SellerCategoryService {
     List<SellerCategory> selectAll();
-    void updateById(String id,String name);
+    void updateById(SellerCategory sellerCategory);
     void add(SellerCategory sellerCategory);
     SellerCategory selectByValue(String value);
 }

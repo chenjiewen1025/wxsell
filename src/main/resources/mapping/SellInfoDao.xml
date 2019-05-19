@@ -34,6 +34,14 @@ join seller_category category on category.VALUE = info.shop_type
         where info.shop_type = #{category}
         order by info.shop_able desc
     </select>
+    <select id="getByKey" resultType="com.chenjiewen.wxsell.VO.ShopList">
+        select info.* ,category.name as "shopTypeName"
+        from
+        seller_info info
+        join seller_category category on category.VALUE = info.shop_type
+        where info.shop_name like "%"#{key}"%"
+        order by info.shop_able desc
+    </select>
 
     <update id="updateBase">
         update seller_info

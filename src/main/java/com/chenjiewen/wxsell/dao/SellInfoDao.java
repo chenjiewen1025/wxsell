@@ -16,4 +16,6 @@ public interface SellInfoDao {
     void updateShopAble(SellerInfo sellerInfo);
     List<ShopList> getAll();
     List<ShopList> getByCategory(@Param("category") String category);
+    List<ShopList> getByKey(@Param("key") String key);
+
 }

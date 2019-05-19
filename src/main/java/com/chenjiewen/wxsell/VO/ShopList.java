@@ -15,7 +15,7 @@ public class ShopList {
 
     private String shopDes;
 
-    private Integer shopStar;
+    private Double shopStar;
 
     private Integer shopType;
 

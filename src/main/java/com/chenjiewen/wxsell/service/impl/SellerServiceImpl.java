@@ -57,4 +57,9 @@ public class SellerServiceImpl implements SellerService {
     public List<ShopList> getByCategory(String category) {
         return sellInfoDao.getByCategory(category);
     }
+
+    @Override
+    public List<ShopList> getByKey(String key) {
+        return sellInfoDao.getByKey(key);
+    }
 }

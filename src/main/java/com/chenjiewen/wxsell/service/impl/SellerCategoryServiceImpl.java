@@ -19,8 +19,8 @@ public class SellerCategoryServiceImpl implements SellerCategoryService {
     }
 
     @Override
-    public void updateById(String id, String name) {
-        dao.updateById(id,name);
+    public void updateById(SellerCategory sellerCategory) {
+        dao.updateById(sellerCategory);
     }
 
     @Override
