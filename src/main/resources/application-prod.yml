@@ -1,5 +1,8 @@
 server:
   port: 8080
+  maxHttpHeaderSize: 10240000
+  tomcat:
+    maxHttpPostSize: 10240000
   servlet:
     context-path: /sell
 spring:

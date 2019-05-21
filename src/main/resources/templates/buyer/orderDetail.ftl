@@ -156,6 +156,10 @@
             window.location.href="http://chenjiewen.natapp1.cc/sell/wechat/authorize?returnUrl=http://chenjiewen.natapp1.cc/sell/buyer/index";
 
         }
+        if ('${type}'==1)
+        {
+            $.toast("下单成功！");
+        }
 
 
 

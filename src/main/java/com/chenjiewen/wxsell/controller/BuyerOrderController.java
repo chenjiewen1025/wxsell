@@ -13,6 +13,7 @@ import com.chenjiewen.wxsell.service.SellerService;
 import com.chenjiewen.wxsell.utils.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -45,8 +46,7 @@ public class BuyerOrderController {
     private SellerService sellerService;
 
     @RequestMapping("/create")
-    @ResponseBody
-    public ResultVO<Map<String, String>> create(@Valid OrderForm orderForm,
+    public String create(@Valid OrderForm orderForm,
                                                 BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("参数不正确", orderForm);
@@ -60,12 +60,27 @@ public class BuyerOrderController {
             throw new SellException(ResultEnum.CART_EMPTY);
         }
 
-        OrderMaster result = orderService.create(orderMaster);
+          orderService.create(orderMaster);
+        OrderMaster result  = orderService.paid(orderMaster);
+        return "redirect:http://chenjiewen.natapp1.cc/sell/buyer/order/print?able=0&type=1&orderId="+result.getOrderId();
+    }
 
-        Map<String, String> map = new HashMap<>();
-        map.put("orderId", result.getOrderId());
 
-        return ResultVOUtil.success(map);
+
+    @RequestMapping("/sure")
+    public String sure(Model model,@Valid OrderForm orderForm,
+                       BindingResult bindingResult) {
+        OrderMaster orderMaster = OrderForm2OrderMasterConverter.convert(orderForm);
+        if (CollectionUtils.isEmpty(orderMaster.getOrderDetailList())) {
+            log.error("购物车不能为空");
+            throw new SellException(ResultEnum.CART_EMPTY);
+        }
+
+        model.addAttribute("openId",orderForm.getOpenid());
+        model.addAttribute("items",orderForm.getItems());
+        model.addAttribute("sellerId",orderForm.getSellerId());
+        model.addAttribute("orderMaster",orderMaster);
+        return "buyer/orderPay";
     }
 
 
@@ -124,6 +139,7 @@ public class BuyerOrderController {
 
     @GetMapping("/print")
     public ModelAndView print(@RequestParam(value = "able",defaultValue = "1") String able,
+                              @RequestParam(value = "type",defaultValue = "0") String type,
                               @RequestParam("orderId") String orderId){
         ModelAndView modelAndView = new ModelAndView();
         OrderMaster orderMaster = new OrderMaster();
@@ -142,6 +158,7 @@ public class BuyerOrderController {
         modelAndView.addObject("able",able);
         modelAndView.addObject("orderDTO",orderMaster);
         modelAndView.addObject("seller",sellerInfo);
+        modelAndView.addObject("type",type);
         modelAndView.setViewName("buyer/orderDetail");
         return  modelAndView;
     }

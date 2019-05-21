@@ -238,9 +238,9 @@
                                                 　　<ul class="btn-numbox" style="margin-top: -60px;  margin-left: 74px">
                                                     <li>
                                                         <ul class="count">
-                                                            <span onclick="jian(this)" class="num-jian">-</span>
-                                                            <input readonly type="text" class="input-num" value="0" />
-                                                            <span onclick="jia(this)" class="num-jia">+</span>
+                                                            <span onclick="jian(this,'${item2.productId}','${item2.productName}','${item2.productPrice}')" class="num-jian">-</span>
+                                                            <input id="num${item2.productId}" readonly type="text" class="input-num" value="0" />
+                                                            <span onclick="jia(this,'${item2.productId}','${item2.productName}','${item2.productPrice}')" class="num-jia">+</span>
                                                         </ul>
                                                     </li>
 
@@ -304,10 +304,25 @@
             </div>
 
     </div>
+        <form id="myform" action="/sell/buyer/order/sure">
+            <input type="hidden" name="sellerId" value="${seller.sellerId}">
+            <input type="hidden" id="openId" name="openid" value="">
+            <input type="hidden" name="items" id="items" value="">
+        </form>
+
         <div id="car" style="    width: 100%;
     bottom: 46px;
     position: fixed;
-    background-color:antiquewhite; display: none "> 211212 </div>
+    background-color:antiquewhite; display: none ">
+
+            　　<ul class="btn-numbox" id="list">
+
+
+
+
+            　　　  </ul>　　
+
+        </div>
 
         <div style="width: 100%;
     bottom: 0;
@@ -316,14 +331,14 @@
     height: 46px;">
             <a href=""class="open-shopcart" onclick="showcar()"><span style="font-size: 39px" class="icon icon-cart"></span></a>
             <span style="margin-left: 48px;
-    font-size: 20px;">共XX件   xx元</span>
+    font-size: 20px;" id="amount"></span>
             <div style="position: fixed;
     /* margin-right: 0px; */
     width: 130px;margin-top: -43px;
     right: 0;">
 
                 <#if seller.shopAble==1>
-                <a href="#" class="button button-big button-fill button-success">结算</a>
+                <a href="#" onclick="sure()" class="button button-big button-fill button-success">结算</a>
                     <#else >
                   <a href="#" style="background-color: #5f646e;" class="button button-big button-fill button-success">暂停营业</a>
             </#if>
@@ -410,36 +425,129 @@ function catego(re) {
     $(document).on('click','.open-about', function () {
         $.popup('.popup-about');
     });
-
-
 </script>
 <script>
 
-    function jian(e) {
+
+        var items = [];
+
+
+    function jian(e,id,name,price) {
         var num_jia = $(e).next().next();
         var num_jian = $(e);
         var input_num = $(e).next();
 
         if(input_num.val() <= 0) {
-            input_num.val(0);
+            input_num.val(0); total();
         } else {
 
             input_num.val(parseInt(input_num.val()) - 1) ;
+
+                for (var i = 0;i<items.length;i++)
+                {
+                    if (items[i].productId == id)
+                    {
+                        items[i].productQuantity =  input_num.val(); total();
+                    }
+                    if (items[i].productQuantity == 0)
+                    {
+                        items.remove(i); total();
+                    }
+                }
+
+
+
+
         }
+      console.log(items)
 
     }
-    function jia(e) {
+    function jia(e,id,name,price) {
+
         var num_jia = $(e);
         var num_jian = $(e).prev().prev();
         var input_num = $(e).prev();
         input_num.val(parseInt(input_num.val()) + 1);
+        var one  = {productId:id,
+            productQuantity:input_num.val(),
+            productPrice:price,
+            productName:name
+        };
+
+        if (items.length==0)
+        {
+            items.push(one);
+            total();
+
+        }
+        else {
+            var status = 0;
+            for (var i = 0;i<items.length;i++)
+            {
+                if (items[i].productId == id)
+                {
+                    items[i].productQuantity =  input_num.val();
+                    status++; total();
+                }
+            }
+            if (status==0)
+            {
+                items.push(one); total();
+            }
+        }
 
 
+        console.log(items);
     }
 
+    Array.prototype.remove = function(dx) {
 
+             if(isNaN(dx) || dx > this.length){
+                     return false;
+                 }
 
+             for(var i = 0,n = 0;i < this.length; i++) {
+                     if(this[i] != this[dx]) {
+                             this[n++] = this[i];
+                         }
+                 }
+             this.length -= 1;
+         };
 
+    function total(){
+        var sum = 0;
+        var count = 0;
+        $("#list").html("");
+        for (var i = 0;i<items.length;i++)
+        {
+
+              sum =   items[i].productQuantity*items[i].productPrice +sum;
+              count  = items[i].productQuantity*1+count;
+              $("#list").append("     <li style=\"padding-top: 10px;\">\n" +
+                      "\n" +
+                      "                <ul class=\"count\"style=\"margin-left: 100px;\">\n" +
+                      "                    <span style=\"padding-right: 30px\">"+items[i].productName+"</span>\n" +
+                      "                    <span style=\"padding-right: 30px\">"+items[i].productPrice+"</span>\n" +
+                      "                    <span onclick="+" class=\"num-jian\">-</span>\n" +
+                      "                    <input readonly type=\"text\" class=\"input-num\" value="+items[i].productQuantity+" />\n" +
+                      "                    <span onclick="+" class=\"num-jia\">+</span>\n" +
+                      "                </ul>\n" +
+                      "            </li>")
+
+        }
+        $("#amount").text("共"+count+"件   "+sum+"元");
+    }
+
+    function sure() {
+
+        $("#items").val(JSON.stringify(items));
+        $("#openId").val(getCookie("openId"));
+        $("#myform").submit();
+    }
+
+</script>
+
+<script>
 
 </script>
 </body>

@@ -82,9 +82,6 @@ public class WebSocket {
                 webSocketSet.get(sendUserId).sendMessage( "用户" + sellerId + "发来消息：" + " <br/> " + message);
             else
                 webSocketSet.get(sendUserId).sendMessage(message);
-        } else {
-            //如果用户不在线则返回不在线信息给自己
-            sendtoUser("当前用户不在线",sendUserId);
         }
     }
 
