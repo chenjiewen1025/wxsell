@@ -63,12 +63,18 @@ and create_time between #{star} and #{end}
     <select id="getSevenDay" resultType="com.chenjiewen.wxsell.VO.SevenDay">
 SELECT
 sum((case when create_time BETWEEN date_sub(now(), INTERVAL   1   day) and now() then 1 else 0 end)) as "one"
-,sum((case when create_time BETWEEN date_sub(now(), INTERVAL   2   day) and date_sub(now(), INTERVAL   1   day) then 1 else 0 end)) as "two"
-,sum((case when create_time BETWEEN date_sub(now(), INTERVAL   3   day) and date_sub(now(), INTERVAL   2   day) then 1 else 0 end)) as "three"
-,sum((case when create_time BETWEEN date_sub(now(), INTERVAL   4   day) and date_sub(now(), INTERVAL   3   day) then 1 else 0 end)) as "four"
-,sum((case when create_time BETWEEN date_sub(now(), INTERVAL   5   day) and date_sub(now(), INTERVAL   4   day) then 1 else 0 end)) as "five"
-,sum((case when create_time BETWEEN date_sub(now(), INTERVAL   6   day) and date_sub(now(), INTERVAL   5   day) then 1 else 0 end)) as "six"
-,sum((case when create_time BETWEEN date_sub(now(), INTERVAL   7   day) and date_sub(now(), INTERVAL   6   day) then 1 else 0 end)) as "seven"
+,sum((case when create_time BETWEEN date_sub(now(), INTERVAL   2   day) and date_sub(now(), INTERVAL   1   day) then 1 else 0 end))
+as "two"
+,sum((case when create_time BETWEEN date_sub(now(), INTERVAL   3   day) and date_sub(now(), INTERVAL   2   day) then 1 else 0 end))
+ as "three"
+,sum((case when create_time BETWEEN date_sub(now(), INTERVAL   4   day) and date_sub(now(), INTERVAL   3   day) then 1 else 0 end))
+as "four"
+,sum((case when create_time BETWEEN date_sub(now(), INTERVAL   5   day) and date_sub(now(), INTERVAL   4   day) then 1 else 0 end))
+as "five"
+,sum((case when create_time BETWEEN date_sub(now(), INTERVAL   6   day) and date_sub(now(), INTERVAL   5   day) then 1 else 0 end))
+as "six"
+,sum((case when create_time BETWEEN date_sub(now(), INTERVAL   7   day) and date_sub(now(), INTERVAL   6   day) then 1 else 0 end))
+as "seven"
 FROM
 order_master
 WHERE order_status = 1 and seller_id = #{sellerId}

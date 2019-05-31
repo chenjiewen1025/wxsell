@@ -76,7 +76,7 @@ public class UploadController {
         Map<String,Object> result = new HashMap<String, Object>();
         String idmes = "0";
         try{
-            //上传文件方法，这里需要改成自己项目里上传文件方法
+            //上传文件方法，
 
             if (!file.isEmpty()) {
                 // 文件保存路径

@@ -271,7 +271,7 @@
                         <#list comments as item>
                             <div class="card" style="height: 100px">
                                 <div class="row" style="height: 100%;">
-                                    <div class="col-30"><img class="shop" src=" ${item.orderImg}" alt=""></div>
+                                    <div class="col-30"><img style="margin-left: 50px" class="shop" src=" ${item.orderImg}" alt=""></div>
                                     <div class="col-70" style="margin-top: 10px;display: inline">
                                         <h3>${item.orderName}</h3>
                                         <h6 style="margin-top: 5px;display: inline" >${item.comment}<p></h6>
@@ -373,7 +373,7 @@
 
             if (getCookie("openId")==null)
             {
-                // window.location.href="http://chenjiewen.natapp1.cc/sell/wechat/authorize?returnUrl=http://chenjiewen.natapp1.cc/sell/buyer/index";
+                 window.location.href="http://chenjiewen.natapp1.cc/sell/wechat/authorize?returnUrl=http://chenjiewen.natapp1.cc/sell/buyer/index";
 
             }
 
