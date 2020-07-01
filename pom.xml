@@ -119,7 +119,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.46</version>
+            <version>8.0.16</version>
         </dependency>
         <!-- 配置阿里druid连接池，通过改变spring.datasource.type设置数据源 -->
         <dependency>
